@@ -22,23 +22,23 @@ class Project {
     }
 }
 
-class ToDoItem {
+class Task {
     id = crypto.randomUUID();
     createdAt = new Date().toISOString();
     complete = false;
 
-    constructor(title, description = null, dueDate = null, priority = 1, notes = null, checklist = null, tags = []) {
+    constructor(title, description = null, dueDate = null, priority = 1, notes = null, subTasks = [], tags = ["important"]) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
         this.notes = notes;
-        this.checklist = checklist;
+        this.subTasks = subTasks;
         this.tags = tags
     }
 }
 
-const item = new ToDoItem("Test", "Test", "February 10", 0, "Hello", "1234", "Not done", ["new"]);
+const item = new Task("Test", "Test", "February 10", 0, "Hello", "1234", "Not done", ["new"]);
 const project = new Project("default");
 
 project.addItem(item);
