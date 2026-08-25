@@ -77,7 +77,6 @@ body {
 header {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     background-color: green;
 }
 
@@ -109,10 +108,28 @@ main {
     font-size: 1.4rem;
 }
 
+.task__actions {
+    display: flex;
+    gap: 12px;
+    font-size: 1.3rem;
+    margin: 0 12px 0 auto;
+}
+
+.task__delete-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
 .task__sub-heading {
     display: flex;
     gap: 16px;
     margin-left: 30px;
+}
+
+.task__tags {
+    display: flex;
+    gap: 12px;
 }
 
 .project__add-task-button {

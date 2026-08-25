@@ -1,50 +1,25 @@
+import Project from "./Project.js";
+import Schedule from "./Schedule.js";
+import ScreenController from "./ScreenController.js";
 import "./styles.css";
+import Task from "./Task.js";
+import User from "./User.js";
 
+const user = new User();
+const defaultProject = new Project("Default")
 
+const task1 = new Task("Go to the gym", null, Schedule.getEndOfMonth(new Date().toISOString()), "Medium", ["health", "workout", "test"]);
+const task2 = new Task("Walk 1 mile", null, new Date().toISOString(), "High", ["health", "workout", "test"]);
 
-class Project {
-    id = crypto.randomUUID();
-    items = [];
+defaultProject.addTask(task1);
+defaultProject.addTask(task2);
 
-    constructor(name) {
-        this.name = name;
-    }
+console.log(defaultProject);
 
-    addItem(item) {
-        this.items.push(item);
-    }
+user.addProject(defaultProject);
 
-    removeItem(itemId) {
-        const index = this.items.findIndex(item => item.id === itemId);
-        if (index !== -1) {
-            this.items.splice(index, 1);
-        }
-    }
-}
-
-class Task {
-    id = crypto.randomUUID();
-    createdAt = new Date().toISOString();
-    complete = false;
-
-    constructor(title, description = null, dueDate = null, priority = 1, notes = null, subTasks = [], tags = ["important"]) {
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.notes = notes;
-        this.subTasks = subTasks;
-        this.tags = tags
-    }
-}
-
-const item = new Task("Test", "Test", "February 10", 0, "Hello", "1234", "Not done", ["new"]);
-const project = new Project("default");
-
-project.addItem(item);
-console.log(project);
-
-console.log()
+ScreenController.renderProjectNav(user.projects);
+ScreenController.renderProject(defaultProject);
 
 // console.log(item.createdAt);
 // console.log(new Date(item.createdAt));

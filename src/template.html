@@ -9,58 +9,36 @@
 
 <body>
     <header>
-        <section class="projects">
-            <h1 class="projects__nav-title">My Projects</h1>
-            <nav class="project-nav">
-                <li class="project-nav__item">
-                    <button class="project-nav__button">Default</button>
+        <section class="schedule">
+            <nav class="schedule-nav">
+                <li class="schedule-nav__item">
+                    <button class="schedule-nav__button">Today</button>
                 </li>
-                <li class="project-nav__item">
-                    <button class="project-nav__button">Fitness</button>
+                <li class="schedule-nav__item">
+                    <button class="schedule-nav__button">This Week</button>
                 </li>
-                <li class="project-nav__item">
-                    <button class="project-nav__button">Groceries</button>
+                <li class="schedule-nav__item">
+                    <button class="schedule-nav__button">This Month</button>
                 </li>
             </nav>
         </section>
 
-        <button>Add project</button>
+        <section class="projects">
+            <h1 class="projects__nav-title">My Projects</h1>
+            <nav class="project-nav" id="project-nav"></nav>
+        </section>
+
+        <div class="add-project">
+            <button class="add-project__button">Add project</button>
+            <dialog class="add-project__modal">
+                <h2>New Project</h2>
+                <label for="title">Name:</label>
+                <input type="text" name="title" id="title">
+            </dialog>
+        </div>
     </header>
 
-    <main id="content">
-        <div class="project">
-            <h1 class="project__title">Fitness</h1>
-            <div class="task">
-                <div class="task__heading">
-                    <input class="task__checkbox" type="checkbox" name="" id="">
-                    <h2 class="task__title">Go to the gym</h2>
-                </div>
-
-                <div class="task__sub-heading">
-                    <p class="task__due-date">10 days</p>
-                    <div class="task__tags">
-                        <p class="tag">important</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="task">
-                <div class="task__heading">
-                    <input class="task__checkbox" type="checkbox" name="" id="">
-                    <h2 class="task__title">Walk 1 mile</h2>
-                </div>
-
-                <div class="task__sub-heading">
-                    <p class="task__due-date">8 days</p>
-                    <div class="task__tags">
-                        <p class="tag">important</p>
-                    </div>
-                </div>
-            </div>
-
-            <button class="project__add-task-button">Add Task +</button>
-        </div>
-    </main>
+    <main id="content"></main>
 </body>
 
 </html>
