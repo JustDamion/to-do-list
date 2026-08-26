@@ -1,6 +1,8 @@
-import Schedule from "./Schedule.js";
+import Schedule from "./schedule.js";
+import User from "./user.js";
+import Project from "./project.js";
 
-export default class ScreenController {
+export default class Screen {
     static contentDiv = document.querySelector("#content");
 
     static createDomElement(tag, classAttribute, textContent = null) {
@@ -14,23 +16,23 @@ export default class ScreenController {
         return element;
     }
 
-    static resetContent() {
-        this.contentDiv.textContent = "";
-    }
-
     static renderProjectNav(projects) {
-        const projectNav = document.querySelector("#project-nav")
+        const projectNav = document.querySelector("#project-nav");
+        projectNav.textContent = "";
 
         for (const project of projects) {
-            const navItem = this.createDomElement("li", "project-nav__item")
-            navItem.appendChild(this.createDomElement("button", "project-nav__button", project.title))
+            const navItem = this.createDomElement("li", "project-nav__item");
+            const navButton = this.createDomElement("button", "project-nav__button", project.title);
+            navButton.setAttribute("data-projectid", project.id);
+            navItem.appendChild(navButton);
             projectNav.appendChild(navItem);
         }
     }
 
     static renderProject(project) {
-        this.resetContent();
+        this.contentDiv.textContent = "";
         const tasks = project.tasks;
+        console.log(project.tasks);
 
         const projectDiv = this.createDomElement("div", "project");
         projectDiv.appendChild(this.createDomElement("h1", "project__title", project.title));
@@ -83,7 +85,41 @@ export default class ScreenController {
             taskDiv.appendChild(taskSubHeading);
             projectDiv.appendChild(taskDiv);
         }
-        projectDiv.appendChild(this.createDomElement("button", "project__ad-task-button", "Add Task +"));
+
+        const addTaskButton = this.createDomElement("button", "project__ad-task-button", "Add Task +");
+        addTaskButton.setAttribute("id", "add-task-button");
+        addTaskButton.setAttribute("data-projectid", project.id);
+        projectDiv.appendChild(addTaskButton);
         this.contentDiv.appendChild(projectDiv);
+    }
+
+    static addListeners() {
+        const addProjectButton = document.querySelector("#add-project-button");
+        const addProjectModal = document.querySelector("#add-project-modal");
+
+        addProjectButton.addEventListener("click", () => {
+            addProjectModal.showModal();
+        });
+
+        const addProjectForm = document.querySelector("#add-project-form");
+        addProjectForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(addProjectForm);
+            const project = new Project(formData.get("title"));
+            User.addProject(project);
+
+            this.renderProjectNav(User.projects);
+            console.log(User.projects);
+            addProjectModal.close();
+        });
+
+        const projectNav = document.querySelector("#project-nav");
+        projectNav.addEventListener("click", (event) => {
+            const projectId = event.target.dataset.projectid;
+            if (projectId) {
+                this.renderProject(User.findProjectById(projectId));
+            }
+        })
     }
 }

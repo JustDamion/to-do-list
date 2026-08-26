@@ -29,11 +29,14 @@
         </section>
 
         <div class="add-project">
-            <button class="add-project__button">Add project</button>
-            <dialog class="add-project__modal">
+            <button class="add-project__button" id="add-project-button">Add project</button>
+            <dialog class="add-project__modal" id="add-project-modal">
                 <h2>New Project</h2>
                 <label for="title">Name:</label>
-                <input type="text" name="title" id="title">
+                <form action="" id="add-project-form">
+                    <input type="text" name="title" id="title">
+                    <button type="submit" id="add-project-submit">Add new project</button>
+                </form>
             </dialog>
         </div>
     </header>

@@ -1,7 +1,6 @@
 export default class Project {
-    id = crypto.randomUUID();
-
     constructor(title) {
+        this.id = crypto.randomUUID();
         this.title = title;
         this.tasks = [];
     }
@@ -10,7 +9,7 @@ export default class Project {
         this.tasks.push(task);
     }
 
-    removeItem(taskId) {
+    removeTask(taskId) {
         const index = this.tasks.findIndex(task => task.id === taskId);
         if (index !== -1) {
             this.tasks.splice(index, 1);

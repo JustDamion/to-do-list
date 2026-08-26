@@ -4,6 +4,12 @@ export default class Schedule {
         return new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString();
     }
 
+    static getEndOfWeek(isoString) {
+        const date = new Date(isoString);
+        const lastDay = date.getDate() - (date.getDay() - 1) + 6;
+        return new Date(date.setDate(lastDay)).toISOString();
+    }
+
     static getDifferenceInDays(isoStringOne, isoStringTwo) {
         const date1 = new Date(isoStringOne);
         const date2 = new Date(isoStringTwo);
