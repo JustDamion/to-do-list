@@ -5,14 +5,8 @@ export default class Project {
         this.tasks = [];
     }
 
-    addTasks(tasks) {
-        if (typeof tasks === Array) {
-            for (const task of tasks) {
-                this.tasks.push(task);
-            }
-        } else {
-            this.tasks.push(tasks);
-        }
+    addTask(task) {
+        this.tasks.push(task);
     }
 
     removeTask(taskId) {
