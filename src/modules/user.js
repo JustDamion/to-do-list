@@ -15,4 +15,15 @@ export default class User {
     static findProjectById(id) {
         return this.projects.find(project => project.id === id);
     }
+
+    static getAllTasks() {
+        let allTasks = [];
+        for (const project of this.projects) {
+            for (const task of project.tasks) {
+                allTasks.push(task);
+            }
+        }
+
+        return allTasks;
+    }
 }

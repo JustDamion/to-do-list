@@ -32,7 +32,6 @@ export default class Screen {
     static renderProject(project) {
         this.contentDiv.textContent = "";
         const tasks = project.tasks;
-        console.log(project.tasks);
 
         const projectDiv = this.createDomElement("div", "project");
         projectDiv.appendChild(this.createDomElement("h1", "project__title", project.title));
@@ -110,7 +109,6 @@ export default class Screen {
             User.addProject(project);
 
             this.renderProjectNav(User.projects);
-            console.log(User.projects);
             addProjectModal.close();
         });
 
@@ -120,6 +118,21 @@ export default class Screen {
             if (projectId) {
                 this.renderProject(User.findProjectById(projectId));
             }
+        })
+
+        const thisMonthButton = document.querySelector("#schedule-nav-month");
+        thisMonthButton.addEventListener("click", () => {
+            this.renderProject(Schedule.getNewestMonthProject());
+        })
+
+        const thisWeekButton = document.querySelector("#schedule-nav-week");
+        thisWeekButton.addEventListener("click", () => {
+            this.renderProject(Schedule.getNewestWeekProject());
+        })
+
+        const todayButton = document.querySelector("#schedule-nav-day");
+        todayButton.addEventListener("click", () => {
+            this.renderProject(Schedule.getNewestDayProject());
         })
     }
 }

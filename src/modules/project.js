@@ -5,8 +5,14 @@ export default class Project {
         this.tasks = [];
     }
 
-    addTask(task) {
-        this.tasks.push(task);
+    addTasks(tasks) {
+        if (typeof tasks === Array) {
+            for (const task of tasks) {
+                this.tasks.push(task);
+            }
+        } else {
+            this.tasks.push(tasks);
+        }
     }
 
     removeTask(taskId) {
@@ -14,5 +20,9 @@ export default class Project {
         if (index !== -1) {
             this.tasks.splice(index, 1);
         }
+    }
+
+    resetTasks() {
+        this.tasks = [];
     }
 }
