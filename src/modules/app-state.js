@@ -1,3 +1,6 @@
+import { getCurrentDateIso, getEndOfMonth, getEndOfWeek } from "../utils/date-utils.js";
+import Project from "./project.js";
+
 let projects = [];
 
 function getProjects() {
@@ -43,4 +46,29 @@ function getAllTasksBeforeDate(endDateIso) {
     return tasksForPeriod;
 }
 
-export { getProjects, addProject, removeProject, findProjectById, getAllTasks, getFirstProject, getAllTasksBeforeDate }
+function createProjectForPeriod(timePeriod) {
+    let tasks = [];
+    let scheduleProject = new Project("Schedule");
+
+    switch (timePeriod) {
+        case "today":
+            tasks = getAllTasksBeforeDate(getCurrentDateIso());
+            scheduleProject.updateTitle("Todays Tasks");
+            break;
+        case "week":
+            tasks = getAllTasksBeforeDate(getEndOfWeek());
+            scheduleProject.updateTitle("This Weeks Tasks");
+            break;
+        case "month":
+            tasks = getAllTasksBeforeDate(getEndOfMonth());
+            scheduleProject.updateTitle("This Months Tasks");
+            break;
+        default:
+            return "No known time period found";
+    }
+
+    scheduleProject.addTasks(tasks);
+    return scheduleProject;
+}
+
+export { getProjects, addProject, removeProject, findProjectById, getAllTasks, getFirstProject, getAllTasksBeforeDate, createProjectForPeriod }

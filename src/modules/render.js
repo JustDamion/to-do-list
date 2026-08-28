@@ -10,17 +10,17 @@ function renderProjectNav(projects) {
     for (const project of projects) {
         const navItem = createDomElement("li", "project-nav__item");
         const navButton = createDomElement("button", "project-nav__button", project.title);
-        navButton.setAttribute("data-projectid", project.id);
+        navButton.setAttribute("data-id", project.id);
         navItem.appendChild(navButton);
         projectNav.appendChild(navItem);
     }
 }
 
 function renderProject(project) {
-    contentDiv.textContent = "";
+    const projectDiv = document.querySelector("#project");
     const tasks = project.tasks;
 
-    const projectDiv = createDomElement("div", "project");
+    projectDiv.textContent = "";
     projectDiv.appendChild(createDomElement("h1", "project__title", project.title));
 
     for (const task of tasks) {
@@ -71,11 +71,8 @@ function renderProject(project) {
         projectDiv.appendChild(taskDiv);
     }
 
-    const addTaskButton = createDomElement("button", "project__add-task-button", "Add Task +");
-    addTaskButton.setAttribute("id", "add-task-button");
-    addTaskButton.setAttribute("data-projectid", `task-button-${project.id}`);
-    projectDiv.appendChild(addTaskButton);
-    contentDiv.appendChild(projectDiv);
+    const addTaskButton = document.querySelector("#add-task-button");
+    addTaskButton.setAttribute("data-id", project.id);
 }
 
 export { renderProjectNav, renderProject }

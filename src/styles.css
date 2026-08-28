@@ -132,7 +132,7 @@ main {
     gap: 12px;
 }
 
-.project__add-task-button {
+.add-task__button {
     width: 100%;
     margin: 16px 0;
     padding: 16px 0;

@@ -9,6 +9,12 @@ export default class Project {
         this.tasks.push(task);
     }
 
+    addTasks(tasks) {
+        for (let task of tasks) {
+            this.addTask(task);
+        }
+    }
+
     removeTask(taskId) {
         const index = this.tasks.findIndex(task => task.id === taskId);
         if (index !== -1) {
@@ -18,5 +24,9 @@ export default class Project {
 
     resetTasks() {
         this.tasks = [];
+    }
+
+    updateTitle(title) {
+        this.title = title;
     }
 }

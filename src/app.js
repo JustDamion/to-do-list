@@ -1,49 +1,76 @@
-import { getProjects, addProject, findProjectById } from "./modules/app-state";
-import Project from "./modules/project";
+import { getProjects, addProject, findProjectById, createProjectForPeriod } from "./modules/app-state.js";
+import Project from "./modules/project.js";
+import { renderProjectNav, renderProject } from "./modules/render.js";
+import Task from "./modules/task.js";
+import { getEndOfMonth } from "./utils/date-utils.js";
 
-const addProjectButton = document.querySelector("#add-project-button");
-const addProjectModal = document.querySelector("#add-project-modal");
+export default function init() {
+    addListeners();
 
-addProjectButton.addEventListener("click", () => {
-    addProjectModal.showModal();
-});
+    const defaultProject = new Project("All Tasks")
 
-const addProjectForm = document.querySelector("#add-project-form");
-addProjectForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+    const task1 = new Task("Go to the gym", null, getEndOfMonth(), "Medium", ["health", "workout", "test"]);
+    const task2 = new Task("Walk 1 mile", null, new Date().toISOString(), "High", ["health", "workout", "test"]);
+    const task3 = new Task("Go to the gym", null, getEndOfMonth(), "Medium", ["health", "workout", "test"]);
+    const task4 = new Task("Walk 1 mile", null, new Date().toISOString(), "High", ["health", "workout", "test"]);
+    const task5 = new Task("Go to the gym", null, getEndOfMonth(), "Medium", ["health", "workout", "test"]);
+    const task6 = new Task("Walk 1 mile", null, new Date().toISOString(), "High", ["health", "workout", "test"]);
 
-    const formData = new FormData(addProjectForm);
-    const project = new Project(formData.get("title"));
-    addProject(project);
+    defaultProject.addTask(task1);
+    defaultProject.addTask(task2);
+    defaultProject.addTask(task3);
+    defaultProject.addTask(task4);
+    defaultProject.addTask(task5);
+    defaultProject.addTask(task6);
 
-    this.renderProjectNav(getProjects());
-    addProjectModal.close();
-});
+    addProject(defaultProject);
 
-// const addTaskButton = document.querySelector(`[data-projectid="task-button-${activeProjectId}"]`);
-// addTaskButton.addEventListener("click", () => {
-//     null
-// })
+    renderProjectNav(getProjects());
+    renderProject(defaultProject);
+}
 
-const projectNav = document.querySelector("#project-nav__list");
-projectNav.addEventListener("click", (event) => {
-    const projectId = event.target.dataset.projectid;
-    if (projectId) {
-        this.renderProject(findProjectById(projectId));
-    }
-})
+function addListeners() {
+    const addProjectButton = document.querySelector("#add-project-button");
+    const addProjectModal = document.querySelector("#add-project-modal");
 
-const thisMonthButton = document.querySelector("#schedule-nav-month");
-thisMonthButton.addEventListener("click", () => {
-    this.renderProject(Schedule.getNewestMonthProject());
-})
+    addProjectButton.addEventListener("click", () => {
+        addProjectModal.showModal();
+    });
 
-const thisWeekButton = document.querySelector("#schedule-nav-week");
-thisWeekButton.addEventListener("click", () => {
-    this.renderProject(Schedule.getNewestWeekProject());
-})
+    const addProjectForm = document.querySelector("#add-project-form");
+    addProjectForm.addEventListener("submit", (event) => {
+        event.preventDefault();
 
-const todayButton = document.querySelector("#schedule-nav-day");
-todayButton.addEventListener("click", () => {
-    this.renderProject(Schedule.getNewestDayProject());
-})
+        const formData = new FormData(addProjectForm);
+        const project = new Project(formData.get("title"));
+        addProject(project);
+
+        renderProjectNav(getProjects());
+        addProjectModal.close();
+    });
+
+    const addTaskButton = document.querySelector("#add-task-button");
+    addTaskButton.addEventListener("click", () => {
+        console.log("HI")
+    })
+
+    const projectNav = document.querySelector("#project-nav__list");
+    projectNav.addEventListener("click", (event) => {
+        const projectId = event.target.dataset.id;
+        if (projectId) {
+            renderProject(findProjectById(projectId));
+            addTaskButton.style.display = "block";
+        }
+    })
+
+    const scheduleNavList = document.querySelector("#schedule-nav-list");
+    scheduleNavList.addEventListener("click", (event) => {
+        const targetElement = event.target;
+        if (targetElement.hasAttribute("data-period")) {
+            const scheduleProject = createProjectForPeriod(targetElement.dataset.period);
+            renderProject(scheduleProject);
+
+            addTaskButton.style.display = "none";
+        }
+    })
+}

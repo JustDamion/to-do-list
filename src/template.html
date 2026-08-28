@@ -11,15 +11,17 @@
     <header>
         <section class="schedule">
             <nav class="schedule-nav">
-                <ul>
+                <ul class="schedule-nav__list" id="schedule-nav-list">
                     <li class="schedule-nav__item">
-                        <button class="schedule-nav__button" id="schedule-nav-day">Today</button>
+                        <button class="schedule-nav__button" id="schedule-nav-day" data-period="today">Today</button>
                     </li>
                     <li class="schedule-nav__item">
-                        <button class="schedule-nav__button" id="schedule-nav-week">This Week</button>
+                        <button class="schedule-nav__button" id="schedule-nav-week" data-period="week">This
+                            Week</button>
                     </li>
                     <li class="schedule-nav__item">
-                        <button class="schedule-nav__button" id="schedule-nav-month">This Month</button>
+                        <button class="schedule-nav__button" id="schedule-nav-month" data-period="month">This
+                            Month</button>
                     </li>
                 </ul>
             </nav>
@@ -27,7 +29,7 @@
 
         <section class="projects">
             <h1 class="projects__nav-title">My Projects</h1>
-            <nav class="project-nav" >
+            <nav class="project-nav">
                 <ul id="project-nav__list"></ul>
             </nav>
         </section>
@@ -45,7 +47,39 @@
         </div>
     </header>
 
-    <main id="content"></main>
+    <main id="content">
+        <div class="project" id="project"></div>
+        <div class="add-task">
+            <!-- <form action="" class="add-task__form" id="add-task-form">
+                <div class="task-input">
+                    <label for="" class="task-input__name-label">Name:</label>
+                    <input type="text" name="" id="" class="task-input__input">
+                </div>
+                <div class="task-input">
+                    <label for="" class="task-input__name-label">Description:</label>
+                    <input type="text" name="" id="" class="task-input__input">
+                </div>
+                <div class="task-input">
+                    <label for="" class="task-input__name-label">Due Date:</label>
+                    <input type="date" name="" id="" class="task-input__input">
+                </div>
+                <div class="task-input">
+                    <label for="" class="task-input__name-label">Priority:</label>
+                    <input type="text" name="" id="" class="task-input__input">
+                </div>
+                <div class="task-input">
+                    <label for="" class="task-input__name-label">Tags:</label>
+                    <input type="text" name="" id="" class="task-input__input">
+                </div>
+
+                <div add-task__actions>
+                    <button type="submit" class="add-task__add">Add</button>
+                    <button class="add-task__cancel">Cancel</button>
+                </div>
+            </form> -->
+            <button class="add-task__button" id="add-task-button">Add Task +</button>
+        </div>
+    </main>
 </body>
 
 </html>
