@@ -190,6 +190,20 @@ header {
     margin: 0 12px 0 auto;
 }
 
+.task__details-button {
+    font-size: 1rem;
+    padding: 0 12px;
+    color: var(--c-off-white-1);
+    background-color: var(--c-blue-3);
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.task__details-button:hover {
+    background-color: var(--c-blue-2);
+}
+
 .task__delete-button {
     background-color: transparent;
     border: none;
