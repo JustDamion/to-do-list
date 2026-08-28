@@ -22,7 +22,7 @@ function renderTaskDetails(task) {
     taskDescription.value = task.description;
 
     const taskDueDate = document.getElementById("task-details-due-date");
-    taskDueDate.value = new Date(task.dueDate);
+    taskDueDate.value = new Date(task.dueDate).toLocaleDateString('sv-SE');
 
     const taskPriority = document.getElementById("task-details-priority");
     taskPriority.value = task.priority;
