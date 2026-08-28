@@ -79,18 +79,17 @@ function addListeners() {
 
     const projectNavList = document.getElementById("nav-list-projects");
     projectNavList.addEventListener("click", (event) => {
-        if (scheduleProjectId !== "") {
-            removeProject(scheduleProjectId);
-        }
-
-        if (activeNavButton !== "") {
-            activeNavButton.classList.remove("nav-list__item--active")
-        }
-        activeNavButton = event.target.parentNode;
-        activeNavButton.classList.add("nav-list__item--active")
-
         const projectId = event.target.dataset.id;
         if (projectId) {
+            if (scheduleProjectId !== "") {
+                removeProject(scheduleProjectId);
+            }
+
+            if (activeNavButton !== "") {
+                activeNavButton.classList.remove("nav-list__item--active")
+            }
+            activeNavButton = event.target.parentNode;
+            activeNavButton.classList.add("nav-list__item--active")
             renderProject(findProjectById(projectId));
             activeProjectId = projectId;
             addTaskButton.style.display = "block";
