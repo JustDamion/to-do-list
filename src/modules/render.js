@@ -22,7 +22,7 @@ function renderTaskDetails(task) {
     taskDescription.value = task.description;
 
     const taskDueDate = document.getElementById("task-details-due-date");
-    taskDueDate.value = new Date(task.dueDate).toLocaleDateString();
+    taskDueDate.value = new Date(task.dueDate);
 
     const taskPriority = document.getElementById("task-details-priority");
     taskPriority.value = task.priority;
@@ -88,7 +88,7 @@ function renderProject(project) {
         if (daysUntilDue === 0) {
             remainingDaysText = "today"
         } else if (daysUntilDue < 0) {
-            remainingDaysText = `Overdue by ${daysUntilDue} days`
+            remainingDaysText = "overdue"
         }
 
         taskSubHeading.appendChild(createDomElement("p", "task__due-date", remainingDaysText));

@@ -239,7 +239,14 @@ header {
     gap: 12px;
 }
 
-.tag, .task__due-date {
+.tag {
+    background-color: var(--c-blue-1);
+    border: 1px solid var(--c-black-2);
+    border-radius: 12px;
+    padding: 0 12px;
+}
+
+.task__due-date {
     background-color: var(--c-blue-1);
     border: 1px solid var(--c-black-2);
     border-radius: 12px;
@@ -252,7 +259,7 @@ header {
     background-color: #e2e800;
 }
 
-.add-task__button {
+.add-task-button {
     font-size: 1.2rem;
     width: 100%;
     margin: 16px 0;

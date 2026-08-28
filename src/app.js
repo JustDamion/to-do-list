@@ -2,7 +2,7 @@ import { getProjects, addProject, removeProject, findProjectById, createProjectF
 import Project from "./modules/project.js";
 import { renderProjectNav, renderProject, renderTaskDetails } from "./modules/render.js";
 import Task from "./modules/task.js";
-import { getEndOfMonth } from "./utils/date-utils.js";
+import { getCurrentDateIso, getEndOfMonth, getEndOfWeek } from "./utils/date-utils.js";
 
 let activeProjectId = "";
 let scheduleProjectId = "";
@@ -16,9 +16,9 @@ export default function init() {
     const task1 = new Task("Go to the gym", "Exercise is good", getEndOfMonth(), "low", ["health", "workout", "test"]);
     const task2 = new Task("Walk 1 mile", null, new Date().toISOString(), "High", ["health", "workout", "test"]);
     const task3 = new Task("Go to the gym", null, getEndOfMonth(), "Medium", ["health", "workout", "test"]);
-    const task4 = new Task("Walk 1 mile", null, new Date().toISOString(), "High", ["health", "workout", "test"]);
+    const task4 = new Task("Walk 1 mile", null, getEndOfWeek(), "High", ["health", "workout", "test"]);
     const task5 = new Task("Go to the gym", null, getEndOfMonth(), "Medium", ["health", "workout", "test"]);
-    const task6 = new Task("Walk 1 mile", null, new Date().toISOString(), "High", ["health", "workout", "test"]);
+    const task6 = new Task("Walk 1 mile", null, getCurrentDateIso(), "High", ["health", "workout", "test"]);
 
     defaultProject.addTask(task1);
     defaultProject.addTask(task2);
@@ -67,7 +67,8 @@ function addListeners() {
         const formData = new FormData(addTaskForm);
         const taskTitle = formData.get("title");
         const taskDescription = formData.get("description");
-        const taskDueDate = formData.get("due-date");
+        const [year, month, day] = formData.get("due-date").split("-").map(Number);
+        const taskDueDate = new Date(year, month - 1, day).toISOString();
         const taskPriority = formData.get("priority");
         const taskTags = formData.get("tags");
 

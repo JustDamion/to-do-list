@@ -13,7 +13,10 @@ function getDifferenceInDays(isoStringOne, isoStringTwo) {
     const date1 = new Date(isoStringOne);
     const date2 = new Date(isoStringTwo);
 
-    const diffTime = Math.abs(date2 - date1);
+    date1.setHours(0, 0, 0, 0);
+    date2.setHours(0, 0, 0, 0);
+
+    const diffTime = date2 - date1;
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
 }
