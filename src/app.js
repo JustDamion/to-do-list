@@ -1,15 +1,18 @@
-import { getProjects, addProject, findProjectById, createProjectForPeriod } from "./modules/app-state.js";
+import { getProjects, addProject, removeProject, findProjectById, createProjectForPeriod } from "./modules/app-state.js";
 import Project from "./modules/project.js";
-import { renderProjectNav, renderProject } from "./modules/render.js";
+import { renderProjectNav, renderProject, renderTaskDetails } from "./modules/render.js";
 import Task from "./modules/task.js";
 import { getEndOfMonth } from "./utils/date-utils.js";
+
+let activeProjectId = "";
+let scheduleProjectId = "";
 
 export default function init() {
     addListeners();
 
-    const defaultProject = new Project("All Tasks")
+    const defaultProject = new Project("Main")
 
-    const task1 = new Task("Go to the gym", null, getEndOfMonth(), "Medium", ["health", "workout", "test"]);
+    const task1 = new Task("Go to the gym", "Exercise is good", getEndOfMonth(), "Medium", ["health", "workout", "test"]);
     const task2 = new Task("Walk 1 mile", null, new Date().toISOString(), "High", ["health", "workout", "test"]);
     const task3 = new Task("Go to the gym", null, getEndOfMonth(), "Medium", ["health", "workout", "test"]);
     const task4 = new Task("Walk 1 mile", null, new Date().toISOString(), "High", ["health", "workout", "test"]);
@@ -27,6 +30,7 @@ export default function init() {
 
     renderProjectNav(getProjects());
     renderProject(defaultProject);
+    activeProjectId = defaultProject.id;
 }
 
 function addListeners() {
@@ -56,20 +60,39 @@ function addListeners() {
 
     const projectNavList = document.getElementById("nav-list-projects");
     projectNavList.addEventListener("click", (event) => {
+        if (scheduleProjectId !== "") {
+            removeProject(scheduleProjectId);
+        }
         const projectId = event.target.dataset.id;
         if (projectId) {
             renderProject(findProjectById(projectId));
+            activeProjectId = projectId;
             addTaskButton.style.display = "block";
+        }
+    })
+
+    const projectDiv = document.getElementById("project");
+    projectDiv.addEventListener("click", (event) => {
+        const targetElement = event.target;
+        const taskId = targetElement.parentNode.parentNode.parentNode.dataset.id;
+        if (targetElement.classList.contains("js-task-details-button")) {
+            renderTaskDetails(findProjectById(activeProjectId).findTaskById(taskId));
         }
     })
 
     const scheduleNavList = document.getElementById("nav-list-schedule");
     scheduleNavList.addEventListener("click", (event) => {
+        if (scheduleProjectId !== "") {
+            removeProject(scheduleProjectId);
+        }
+
         const targetElement = event.target;
         if (targetElement.hasAttribute("data-period")) {
             const scheduleProject = createProjectForPeriod(targetElement.dataset.period);
+            addProject(scheduleProject);
             renderProject(scheduleProject);
-
+            activeProjectId = scheduleProject.id;
+            scheduleProjectId = scheduleProject.id;
             addTaskButton.style.display = "none";
         }
     })

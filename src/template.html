@@ -51,39 +51,69 @@
         </div>
     </aside>
 
+    <dialog class="task-details" id="task-details-dialog">
+        <form class="task-details__form" action="">
+            <div details-input>
+                <label class="details-input__name" for="task-details-title">Name:</label>
+                <input class="details-input__input" type="text" name="" id="task-details-title" disabled>
+            </div>
+            <div details-input>
+                <label class="details-input__description" for="task-details-description">Description:</label>
+                <input class="details-input__input" type="text" name="" id="task-details-description" disabled>
+            </div>
+            <div details-input>
+                <label class="details-input__due-date" for="task-details-due-date">Due Date:</label>
+                <input class="details-input__input" type="calendar" name="" id="task-details-due-date" disabled>
+            </div>
+            <div details-input>
+                <label class="details-input__priority" for="task-details-priority">Priority:</label>
+                <input class="details-input__input" type="text" name="" id="task-details-priority" disabled>
+            </div>
+            <div details-input>
+                <label class="details-input__tags" for="task-details-tags">Tags:</label>
+                <input class="details-input__input" type="text" name="" id="task-details-tags" disabled>
+            </div>
+        </form>
+    </dialog>
+
     <main>
         <section class="content">
             <div class="project" id="project"></div>
-            <div class="add-task">
-                <!-- <form action="" class="add-task__form" id="add-task-form">
-                <div class="task-input">
-                    <label for="" class="task-input__name-label">Name:</label>
-                    <input type="text" name="" id="" class="task-input__input">
-                </div>
-                <div class="task-input">
-                    <label for="" class="task-input__name-label">Description:</label>
-                    <input type="text" name="" id="" class="task-input__input">
-                </div>
-                <div class="task-input">
-                    <label for="" class="task-input__name-label">Due Date:</label>
-                    <input type="date" name="" id="" class="task-input__input">
-                </div>
-                <div class="task-input">
-                    <label for="" class="task-input__name-label">Priority:</label>
-                    <input type="text" name="" id="" class="task-input__input">
-                </div>
-                <div class="task-input">
-                    <label for="" class="task-input__name-label">Tags:</label>
-                    <input type="text" name="" id="" class="task-input__input">
-                </div>
+            <dialog class="add-task">
+                <form action="" class="add-task__form" id="add-task-form">
+                    <div class="form-row">
+                        <div class="task-input">
+                            <label for="" class="task-input__name-label">Name:</label>
+                            <input type="text" name="" id="" class="task-input__input">
+                        </div>
+                        <div class="task-input">
+                            <label for="" class="task-input__name-label">Description:</label>
+                            <input type="text" name="" id="" class="task-input__input">
+                        </div>
+                    </div>
 
-                <div add-task__actions>
-                    <button type="submit" class="add-task__add">Add</button>
-                    <button class="add-task__cancel">Cancel</button>
-                </div>
-            </form> -->
-                <button class="add-task__button" id="add-task-button">Add Task +</button>
-            </div>
+                    <div class="form-row">
+                        <div class="task-input">
+                            <label for="" class="task-input__name-label">Due Date:</label>
+                            <input type="date" name="" id="" class="task-input__input">
+                        </div>
+                        <div class="task-input">
+                            <label for="" class="task-input__name-label">Priority:</label>
+                            <input type="text" name="" id="" class="task-input__input">
+                        </div>
+                        <div class="task-input">
+                            <label for="" class="task-input__name-label">Tags:</label>
+                            <input type="text" name="" id="" class="task-input__input">
+                        </div>
+                    </div>
+                    <div add-task__actions>
+                        <button type="submit" class="add-task__add">Add</button>
+                        <button class="add-task__cancel">Cancel</button>
+                    </div>
+
+                </form>
+            </dialog>
+            <button class="add-task__button" id="add-task-button">Add Task +</button>
         </section>
     </main>
 </body>

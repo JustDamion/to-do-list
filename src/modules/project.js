@@ -29,4 +29,8 @@ export default class Project {
     updateTitle(title) {
         this.title = title;
     }
+
+    findTaskById(id) {
+        return this.tasks.find(task => task.id === id);
+    }
 }

@@ -161,7 +161,7 @@ header {
 }
 
 .content {
-    padding: 8px 32px;
+    padding: 12px 32px;
 }
 
 .task {
@@ -234,4 +234,8 @@ header {
 
 .add-task__button:hover {
     background-color: var(--c-blue-2);
+}
+
+.form-row {
+    display: flex;
 }

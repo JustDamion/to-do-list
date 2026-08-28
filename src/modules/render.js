@@ -14,6 +14,26 @@ function renderProjectNav(projects) {
     }
 }
 
+function renderTaskDetails(task) {
+    const taskTitle = document.getElementById("task-details-title");
+    taskTitle.value = task.title;
+
+    const taskDescription = document.getElementById("task-details-description");
+    taskDescription.value = task.description;
+
+    const taskDueDate = document.getElementById("task-details-due-date");
+    taskDueDate.value = new Date(task.dueDate).toLocaleDateString();
+
+    const taskPriority = document.getElementById("task-details-priority");
+    taskPriority.value = task.priority;
+
+    const taskTags = document.getElementById("task-details-tags");
+    taskTags.value = task.tags;
+
+    const taskDetailsDialog = document.getElementById("task-details-dialog");
+    taskDetailsDialog.showModal();
+}
+
 function renderProject(project) {
     const projectDiv = document.getElementById("project");
     const tasks = project.tasks;
@@ -25,6 +45,8 @@ function renderProject(project) {
         const daysUntilDue = getDifferenceInDays(getCurrentDateIso(), task.dueDate);
 
         const taskDiv = createDomElement("div", "task");
+        taskDiv.setAttribute("data-id", task.id)
+
         const taskHeading = createDomElement("div", "task__heading")
 
         const taskCheckbox = document.createElement("input");
@@ -41,8 +63,8 @@ function renderProject(project) {
         taskHeading.appendChild(taskLabel);
 
         const taskActions = createDomElement("div", "task__actions");
-        taskActions.appendChild(createDomElement("button", "task__edit-button", "Edit"));
-        taskActions.appendChild(createDomElement("button", "task__delete-button", "X"));
+        taskActions.appendChild(createDomElement("button", "task__details-button js-task-details-button", "Details"));
+        taskActions.appendChild(createDomElement("button", "task__delete-button js-task-delete-button", "X"));
 
         taskHeading.appendChild(taskActions);
         taskDiv.appendChild(taskHeading);
@@ -73,4 +95,4 @@ function renderProject(project) {
     addTaskButton.setAttribute("data-id", project.id);
 }
 
-export { renderProjectNav, renderProject }
+export { renderProjectNav, renderProject, renderTaskDetails }
