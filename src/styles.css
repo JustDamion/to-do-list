@@ -116,8 +116,16 @@ header {
 }
 
 .nav-list__item {
+    display: flex;
+    align-items: center;
     margin: 0 auto 8px auto;
+    padding-left: 12px;
     width: 80%;
+}
+
+.nav-list__icon {
+    width: 20px;
+    height: 20px;
 }
 
 .nav-list__button {
@@ -130,7 +138,7 @@ header {
     cursor: pointer;
 }
 
-.nav-list__button:hover {
+.nav-list__item:hover {
     background-color: var(--c-blue-2);
 }
 
