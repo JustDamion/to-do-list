@@ -55,8 +55,26 @@ function addListeners() {
     });
 
     const addTaskButton = document.getElementById("add-task-button");
+    const addTaskDialog = document.getElementById("add-task-dialog");
     addTaskButton.addEventListener("click", () => {
-        console.log("HI")
+        addTaskDialog.showModal();
+    })
+
+    const addTaskForm = document.getElementById("add-task-form");
+    addTaskForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(addTaskForm);
+        const taskTitle = formData.get("title");
+        const taskDescription = formData.get("description");
+        const taskDueDate = formData.get("due-date");
+        const taskPriority = formData.get("priority");
+        const taskTags = formData.get("tags");
+
+        const task = new Task(taskTitle, taskDescription, taskDueDate, taskPriority, taskTags);
+        findProjectById(activeProjectId).addTask(task);
+        addTaskDialog.close();
+        renderProject(findProjectById(activeProjectId));
     })
 
     const projectNavList = document.getElementById("nav-list-projects");
