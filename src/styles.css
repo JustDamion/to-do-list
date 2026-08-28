@@ -172,9 +172,23 @@ header {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    padding: 16px 0;
-    border-bottom: 1px solid #b0b0b0;
-    /* border-right: 8px solid rgb(218, 96, 96); */
+    padding: 16px 16px;
+    margin-bottom: 12px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.298);
+    background-color: whitesmoke;
+    border-radius: 16px;
+}
+
+.task--low-priority {
+    border-left: 8px solid rgb(120, 218, 96);
+}
+
+.task--medium-priority {
+    border-left: 8px solid rgb(218, 218, 96);
+}
+
+.task--high-priority {
+    border-left: 8px solid rgb(218, 96, 96);
 }
 
 .task__heading {

@@ -44,7 +44,20 @@ function renderProject(project) {
     for (const task of tasks) {
         const daysUntilDue = getDifferenceInDays(getCurrentDateIso(), task.dueDate);
 
-        const taskDiv = createDomElement("div", "task");
+        let taskPriorityClass = "task--low-priority";
+        switch (task.priority.toLowerCase()) {
+            case "low":
+                taskPriorityClass = "task--low-priority";
+                break;
+            case "medium":
+                taskPriorityClass = "task--medium-priority";
+                break;
+            case "high":
+                taskPriorityClass = "task--high-priority";
+                break;
+        }
+
+        const taskDiv = createDomElement("div", `task ${taskPriorityClass}`);
         taskDiv.setAttribute("data-id", task.id)
 
         const taskHeading = createDomElement("div", "task__heading")

@@ -13,7 +13,7 @@ export default function init() {
 
     const defaultProject = new Project("Main")
 
-    const task1 = new Task("Go to the gym", "Exercise is good", getEndOfMonth(), "Medium", ["health", "workout", "test"]);
+    const task1 = new Task("Go to the gym", "Exercise is good", getEndOfMonth(), "low", ["health", "workout", "test"]);
     const task2 = new Task("Walk 1 mile", null, new Date().toISOString(), "High", ["health", "workout", "test"]);
     const task3 = new Task("Go to the gym", null, getEndOfMonth(), "Medium", ["health", "workout", "test"]);
     const task4 = new Task("Walk 1 mile", null, new Date().toISOString(), "High", ["health", "workout", "test"]);
