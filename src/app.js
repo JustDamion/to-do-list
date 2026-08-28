@@ -30,14 +30,14 @@ export default function init() {
 }
 
 function addListeners() {
-    const addProjectButton = document.querySelector("#add-project-button");
-    const addProjectModal = document.querySelector("#add-project-modal");
+    const addProjectButton = document.getElementById("add-project-button");
+    const addProjectModal = document.getElementById("add-project-modal");
 
     addProjectButton.addEventListener("click", () => {
         addProjectModal.showModal();
     });
 
-    const addProjectForm = document.querySelector("#add-project-form");
+    const addProjectForm = document.getElementById("add-project-form");
     addProjectForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
@@ -49,13 +49,13 @@ function addListeners() {
         addProjectModal.close();
     });
 
-    const addTaskButton = document.querySelector("#add-task-button");
+    const addTaskButton = document.getElementById("add-task-button");
     addTaskButton.addEventListener("click", () => {
         console.log("HI")
     })
 
-    const projectNav = document.querySelector("#project-nav__list");
-    projectNav.addEventListener("click", (event) => {
+    const projectNavList = document.getElementById("nav-list-projects");
+    projectNavList.addEventListener("click", (event) => {
         const projectId = event.target.dataset.id;
         if (projectId) {
             renderProject(findProjectById(projectId));
@@ -63,7 +63,7 @@ function addListeners() {
         }
     })
 
-    const scheduleNavList = document.querySelector("#schedule-nav-list");
+    const scheduleNavList = document.getElementById("nav-list-schedule");
     scheduleNavList.addEventListener("click", (event) => {
         const targetElement = event.target;
         if (targetElement.hasAttribute("data-period")) {

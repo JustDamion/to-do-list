@@ -1,15 +1,13 @@
 import { getCurrentDateIso, getDifferenceInDays } from "../utils/date-utils.js";
 import { createDomElement } from "../utils/dom-utils.js";
 
-const contentDiv = document.querySelector("#content");
-
 function renderProjectNav(projects) {
-    const projectNav = document.querySelector("#project-nav__list");
+    const projectNav = document.getElementById("nav-list-projects");
     projectNav.textContent = "";
 
     for (const project of projects) {
-        const navItem = createDomElement("li", "project-nav__item");
-        const navButton = createDomElement("button", "project-nav__button", project.title);
+        const navItem = createDomElement("li", "nav-list__item");
+        const navButton = createDomElement("button", "nav-list__button", project.title);
         navButton.setAttribute("data-id", project.id);
         navItem.appendChild(navButton);
         projectNav.appendChild(navItem);
@@ -17,7 +15,7 @@ function renderProjectNav(projects) {
 }
 
 function renderProject(project) {
-    const projectDiv = document.querySelector("#project");
+    const projectDiv = document.getElementById("project");
     const tasks = project.tasks;
 
     projectDiv.textContent = "";
@@ -71,7 +69,7 @@ function renderProject(project) {
         projectDiv.appendChild(taskDiv);
     }
 
-    const addTaskButton = document.querySelector("#add-task-button");
+    const addTaskButton = document.getElementById("add-task-button");
     addTaskButton.setAttribute("data-id", project.id);
 }
 

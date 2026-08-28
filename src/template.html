@@ -9,30 +9,31 @@
 
 <body>
     <header>
-        <section class="schedule">
-            <nav class="schedule-nav">
-                <ul class="schedule-nav__list" id="schedule-nav-list">
-                    <li class="schedule-nav__item">
-                        <button class="schedule-nav__button" id="schedule-nav-day" data-period="today">Today</button>
-                    </li>
-                    <li class="schedule-nav__item">
-                        <button class="schedule-nav__button" id="schedule-nav-week" data-period="week">This
-                            Week</button>
-                    </li>
-                    <li class="schedule-nav__item">
-                        <button class="schedule-nav__button" id="schedule-nav-month" data-period="month">This
-                            Month</button>
-                    </li>
-                </ul>
-            </nav>
-        </section>
+        <div class="header__branding">
+            <h1 class="branding__title">To-Do-List</h1>
+        </div>
+    </header>
 
-        <section class="projects">
-            <h1 class="projects__nav-title">My Projects</h1>
-            <nav class="project-nav">
-                <ul id="project-nav__list"></ul>
-            </nav>
-        </section>
+    <aside class="sidebar">
+        <nav class="sidebar__nav">
+            <h2 class="nav-title">Schedule</h2>
+            <ul class="nav-list" id="nav-list-schedule">
+                <li class="nav-list__item">
+                    <button class="nav-list__button" id="nav-day-button" data-period="today">Today</button>
+                </li>
+                <li class="nav-list__item">
+                    <button class="nav-list__button" id="nav-week-button" data-period="week">This
+                        Week</button>
+                </li>
+                <li class="nav-list__item">
+                    <button class="nav-list__button" id="nav-month-button" data-period="month">This
+                        Month</button>
+                </li>
+            </ul>
+
+            <h2 class="nav-title">Projects</h2>
+            <ul class="nav-list" id="nav-list-projects"></ul>
+        </nav>
 
         <div class="add-project">
             <button class="add-project__button" id="add-project-button">Add project</button>
@@ -45,12 +46,13 @@
                 </form>
             </dialog>
         </div>
-    </header>
+    </aside>
 
-    <main id="content">
-        <div class="project" id="project"></div>
-        <div class="add-task">
-            <!-- <form action="" class="add-task__form" id="add-task-form">
+    <main>
+        <section class="content">
+            <div class="project" id="project"></div>
+            <div class="add-task">
+                <!-- <form action="" class="add-task__form" id="add-task-form">
                 <div class="task-input">
                     <label for="" class="task-input__name-label">Name:</label>
                     <input type="text" name="" id="" class="task-input__input">
@@ -77,8 +79,9 @@
                     <button class="add-task__cancel">Cancel</button>
                 </div>
             </form> -->
-            <button class="add-task__button" id="add-task-button">Add Task +</button>
-        </div>
+                <button class="add-task__button" id="add-task-button">Add Task +</button>
+            </div>
+        </section>
     </main>
 </body>
 
