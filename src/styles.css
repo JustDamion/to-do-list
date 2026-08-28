@@ -118,9 +118,13 @@ header {
 .nav-list__item {
     display: flex;
     align-items: center;
-    margin: 0 auto 8px auto;
-    padding-left: 12px;
+    margin: 0 auto 0 auto;
+    padding: 4px 12px;
     width: 80%;
+}
+
+.nav-list__item--active {
+    background-color: var(--c-blue-2);
 }
 
 .nav-list__icon {

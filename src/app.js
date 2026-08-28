@@ -6,6 +6,7 @@ import { getEndOfMonth } from "./utils/date-utils.js";
 
 let activeProjectId = "";
 let scheduleProjectId = "";
+let activeNavButton = "";
 
 export default function init() {
     addListeners();
@@ -63,6 +64,13 @@ function addListeners() {
         if (scheduleProjectId !== "") {
             removeProject(scheduleProjectId);
         }
+
+        if (activeNavButton !== "") {
+            activeNavButton.classList.remove("nav-list__item--active")
+        }
+        activeNavButton = event.target.parentNode;
+        activeNavButton.classList.add("nav-list__item--active")
+
         const projectId = event.target.dataset.id;
         if (projectId) {
             renderProject(findProjectById(projectId));
@@ -88,11 +96,19 @@ function addListeners() {
 
         const targetElement = event.target;
         if (targetElement.hasAttribute("data-period")) {
+            if (activeNavButton !== "") {
+                activeNavButton.classList.remove("nav-list__item--active")
+            }
+            activeNavButton = targetElement.parentNode;
+
             const scheduleProject = createProjectForPeriod(targetElement.dataset.period);
             addProject(scheduleProject);
             renderProject(scheduleProject);
+
             activeProjectId = scheduleProject.id;
             scheduleProjectId = scheduleProject.id;
+
+            activeNavButton.classList.add("nav-list__item--active")
             addTaskButton.style.display = "none";
         }
     })
