@@ -51,7 +51,7 @@ function renderProject(project) {
 
         let remainingDaysText = `${daysUntilDue} days left`;
         if (daysUntilDue === 0) {
-            remainingDaysText = "Today"
+            remainingDaysText = "today"
         } else if (daysUntilDue < 0) {
             remainingDaysText = `Overdue by ${daysUntilDue} days`
         }
