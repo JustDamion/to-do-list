@@ -1,4 +1,5 @@
-import { getProjects, addProject, removeProject, findProjectById, createProjectForPeriod } from "./modules/app-state.js";
+import { getProjects, addProject, removeProject, findProjectById } from "./modules/app-state.js";
+import { createProjectForPeriod } from "./modules/schedule.js";
 import Project from "./modules/project.js";
 import { renderProjectNav, renderProject, renderTaskDetails } from "./modules/render.js";
 import Task from "./modules/task.js";
@@ -9,7 +10,9 @@ let scheduleProjectId = "";
 let activeNavButton = "";
 
 export default function init() {
-    addListeners();
+    addProjectListeners();
+    addTaskListeners();
+    addNavListeners();
 
     const defaultProject = new Project("Main")
 
@@ -34,26 +37,54 @@ export default function init() {
     activeProjectId = defaultProject.id;
 }
 
-function addListeners() {
-    const addProjectButton = document.getElementById("add-project-button");
-    const addProjectModal = document.getElementById("add-project-modal");
+function addNavListeners() {
+    const addTaskButton = document.getElementById("add-task-button");
+    const scheduleNavList = document.getElementById("nav-list-schedule");
+    scheduleNavList.addEventListener("click", (event) => {
+        if (scheduleProjectId !== "") {
+            removeProject(scheduleProjectId);
+        }
 
-    addProjectButton.addEventListener("click", () => {
-        addProjectModal.showModal();
-    });
+        const targetElement = event.target;
+        if (targetElement.hasAttribute("data-period")) {
+            if (activeNavButton !== "") {
+                activeNavButton.classList.remove("nav-list__item--active")
+            }
+            activeNavButton = targetElement.parentNode;
 
-    const addProjectForm = document.getElementById("add-project-form");
-    addProjectForm.addEventListener("submit", (event) => {
-        event.preventDefault();
+            const scheduleProject = createProjectForPeriod(targetElement.dataset.period);
+            addProject(scheduleProject);
+            renderProject(scheduleProject);
 
-        const formData = new FormData(addProjectForm);
-        const project = new Project(formData.get("title"));
-        addProject(project);
+            activeProjectId = scheduleProject.id;
+            scheduleProjectId = scheduleProject.id;
 
-        renderProjectNav(getProjects());
-        addProjectModal.close();
-    });
+            activeNavButton.classList.add("nav-list__item--active")
+            addTaskButton.style.display = "none";
+        }
+    })
 
+    const projectNavList = document.getElementById("nav-list-projects");
+    projectNavList.addEventListener("click", (event) => {
+        const projectId = event.target.dataset.id;
+        if (projectId) {
+            if (scheduleProjectId !== "") {
+                removeProject(scheduleProjectId);
+            }
+
+            if (activeNavButton !== "") {
+                activeNavButton.classList.remove("nav-list__item--active")
+            }
+            activeNavButton = event.target.parentNode;
+            activeNavButton.classList.add("nav-list__item--active")
+            renderProject(findProjectById(projectId));
+            activeProjectId = projectId;
+            addTaskButton.style.display = "block";
+        }
+    })
+}
+
+function addTaskListeners() {
     const addTaskButton = document.getElementById("add-task-button");
     const addTaskDialog = document.getElementById("add-task-dialog");
     addTaskButton.addEventListener("click", () => {
@@ -77,25 +108,27 @@ function addListeners() {
         addTaskDialog.close();
         renderProject(findProjectById(activeProjectId));
     })
+}
 
-    const projectNavList = document.getElementById("nav-list-projects");
-    projectNavList.addEventListener("click", (event) => {
-        const projectId = event.target.dataset.id;
-        if (projectId) {
-            if (scheduleProjectId !== "") {
-                removeProject(scheduleProjectId);
-            }
+function addProjectListeners() {
+    const addProjectButton = document.getElementById("add-project-button");
+    const addProjectModal = document.getElementById("add-project-modal");
 
-            if (activeNavButton !== "") {
-                activeNavButton.classList.remove("nav-list__item--active")
-            }
-            activeNavButton = event.target.parentNode;
-            activeNavButton.classList.add("nav-list__item--active")
-            renderProject(findProjectById(projectId));
-            activeProjectId = projectId;
-            addTaskButton.style.display = "block";
-        }
-    })
+    addProjectButton.addEventListener("click", () => {
+        addProjectModal.showModal();
+    });
+
+    const addProjectForm = document.getElementById("add-project-form");
+    addProjectForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(addProjectForm);
+        const project = new Project(formData.get("title"));
+        addProject(project);
+
+        renderProjectNav(getProjects());
+        addProjectModal.close();
+    });
 
     const projectDiv = document.getElementById("project");
     projectDiv.addEventListener("click", (event) => {
@@ -103,31 +136,6 @@ function addListeners() {
         const taskId = targetElement.parentNode.parentNode.parentNode.dataset.id;
         if (targetElement.classList.contains("js-task-details-button")) {
             renderTaskDetails(findProjectById(activeProjectId).findTaskById(taskId));
-        }
-    })
-
-    const scheduleNavList = document.getElementById("nav-list-schedule");
-    scheduleNavList.addEventListener("click", (event) => {
-        if (scheduleProjectId !== "") {
-            removeProject(scheduleProjectId);
-        }
-
-        const targetElement = event.target;
-        if (targetElement.hasAttribute("data-period")) {
-            if (activeNavButton !== "") {
-                activeNavButton.classList.remove("nav-list__item--active")
-            }
-            activeNavButton = targetElement.parentNode;
-
-            const scheduleProject = createProjectForPeriod(targetElement.dataset.period);
-            addProject(scheduleProject);
-            renderProject(scheduleProject);
-
-            activeProjectId = scheduleProject.id;
-            scheduleProjectId = scheduleProject.id;
-
-            activeNavButton.classList.add("nav-list__item--active")
-            addTaskButton.style.display = "none";
         }
     })
 }

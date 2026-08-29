@@ -1,6 +1,23 @@
 import { getCurrentDateIso, getDifferenceInDays } from "../utils/date-utils.js";
 import { createDomElement } from "../utils/dom-utils.js";
 
+const PRIORITY_CLASSES = {
+    low: "task--low-priority",
+    medium: "task--medium-priority",
+    high: "task--high-priority",
+}
+
+function formatDueDateText(days) {
+    let remainingDaysText = `${days} days left`;
+    if (days === 0) {
+        remainingDaysText = "today"
+    } else if (days < 0) {
+        remainingDaysText = "overdue"
+    }
+
+    return remainingDaysText;
+}
+
 function renderProjectNav(projects) {
     const projectNav = document.getElementById("nav-list-projects");
     projectNav.textContent = "";
@@ -43,19 +60,7 @@ function renderProject(project) {
 
     for (const task of tasks) {
         const daysUntilDue = getDifferenceInDays(getCurrentDateIso(), task.dueDate);
-
-        let taskPriorityClass = "task--low-priority";
-        switch (task.priority.toLowerCase()) {
-            case "low":
-                taskPriorityClass = "task--low-priority";
-                break;
-            case "medium":
-                taskPriorityClass = "task--medium-priority";
-                break;
-            case "high":
-                taskPriorityClass = "task--high-priority";
-                break;
-        }
+        const taskPriorityClass = PRIORITY_CLASSES[task.priority.toLowerCase()] || PRIORITY_CLASSES["low"];
 
         const taskDiv = createDomElement("div", `task ${taskPriorityClass}`);
         taskDiv.setAttribute("data-id", task.id)
@@ -83,15 +88,7 @@ function renderProject(project) {
         taskDiv.appendChild(taskHeading);
 
         const taskSubHeading = createDomElement("div", "task__sub-heading");
-
-        let remainingDaysText = `${daysUntilDue} days left`;
-        if (daysUntilDue === 0) {
-            remainingDaysText = "today"
-        } else if (daysUntilDue < 0) {
-            remainingDaysText = "overdue"
-        }
-
-        taskSubHeading.appendChild(createDomElement("p", "task__due-date", remainingDaysText));
+        taskSubHeading.appendChild(createDomElement("p", "task__due-date", formatDueDateText(daysUntilDue)));
 
         const tags = task.tags;
         const taskTags = createDomElement("div", "task__tags");
