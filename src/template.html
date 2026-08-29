@@ -51,6 +51,14 @@
         </div>
     </aside>
 
+    <dialog class="confirmation" id="confirmation-dialog">
+        <h2 class="confirmation__title">Are you sure?</h2>
+        <div class="confirmation__actions">
+            <button value="confirm" class="confirmation__confirm-button" id="confirmation-confirm-button">Delete Task</button>
+            <button value="cancel" class="confirmation__cancel-button" id="confirmation-cancel-button">Cancel</button>
+        </div>
+    </dialog>
+
     <dialog class="task-details" id="task-details-dialog">
         <form class="task-details__form" action="">
             <div class="details-input">
@@ -110,7 +118,6 @@
                         <button type="submit" class="add-task__add">Add</button>
                         <button type="button" class="add-task__cancel">Cancel</button>
                     </div>
-
                 </form>
             </dialog>
             <button class="add-task-button" id="add-task-button">Add Task +</button>

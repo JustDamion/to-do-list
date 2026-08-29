@@ -134,8 +134,13 @@ function addProjectListeners() {
     projectDiv.addEventListener("click", (event) => {
         const targetElement = event.target;
         const taskId = targetElement.parentNode.parentNode.parentNode.dataset.id;
+        const project = findProjectById(activeProjectId);
+
         if (targetElement.classList.contains("js-task-details-button")) {
-            renderTaskDetails(findProjectById(activeProjectId).findTaskById(taskId));
+            renderTaskDetails(project.findTaskById(taskId));
+        } else if (targetElement.classList.contains("js-task-delete-button")) {
+            project.removeTask(taskId);
+            renderProject(project);
         }
     })
 }

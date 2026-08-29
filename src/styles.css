@@ -271,7 +271,7 @@ header {
     cursor: pointer;
 }
 
-.add-task__button:hover {
+.add-task-button:hover {
     background-color: var(--c-blue-2);
 }
 
