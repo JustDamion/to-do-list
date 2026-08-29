@@ -6,6 +6,7 @@ import Task from "./modules/task.js";
 import { getCurrentDateIso, getEndOfMonth, getEndOfWeek } from "./utils/date-utils.js";
 
 let activeProjectId = "";
+let activeTaskId = "";
 let scheduleProjectId = "";
 let activeNavButton = "";
 
@@ -108,6 +109,14 @@ function addTaskListeners() {
         addTaskDialog.close();
         renderProject(findProjectById(activeProjectId));
     })
+
+    const editTaskButton = document.getElementById("task-details__edit");
+    editTaskButton.addEventListener("click", (event) => {
+        const inputs = document.getElementsByClassName("js-details-input__input");
+        for (let input of inputs) {
+            input.removeAttribute("disabled");
+        }
+    })
 }
 
 function addProjectListeners() {
@@ -137,6 +146,8 @@ function addProjectListeners() {
         const project = findProjectById(activeProjectId);
 
         if (targetElement.classList.contains("js-task-details-button")) {
+            activeTaskId = taskId;
+            console.log(activeTaskId);
             renderTaskDetails(project.findTaskById(taskId));
         } else if (targetElement.classList.contains("js-task-delete-button")) {
             project.removeTask(taskId);

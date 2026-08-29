@@ -63,23 +63,29 @@
         <form class="task-details__form" action="">
             <div class="details-input">
                 <label class="details-input__name" for="task-details-title">Name:</label>
-                <input class="details-input__input" type="text" name="" id="task-details-title" disabled>
+                <input class="details-input__input js-details-input__input" type="text" name="" id="task-details-title" disabled>
             </div>
             <div class="details-input">
                 <label class="details-input__description" for="task-details-description">Description:</label>
-                <input class="details-input__input" type="text" name="" id="task-details-description" disabled>
+                <input class="details-input__input js-details-input__input" type="text" name="" id="task-details-description" disabled>
             </div>
             <div class="details-input">
                 <label class="details-input__due-date" for="task-details-due-date">Due Date:</label>
-                <input class="details-input__input" type="date" name="" id="task-details-due-date" disabled>
+                <input class="details-input__input js-details-input__input" type="date" name="" id="task-details-due-date" disabled>
             </div>
             <div class="details-input">
                 <label class="details-input__priority" for="task-details-priority">Priority:</label>
-                <input class="details-input__input" type="text" name="" id="task-details-priority" disabled>
+                <input class="details-input__input js-details-input__input" type="text" name="" id="task-details-priority" disabled>
             </div>
             <div class="details-input">
                 <label class="details-input__tags" for="task-details-tags">Tags:</label>
-                <input class="details-input__input" type="text" name="" id="task-details-tags" disabled>
+                <input class="details-input__input js-details-input__input" type="text" name="" id="task-details-tags" disabled>
+            </div>
+
+            <div class="task-details__actions">
+                <button type="button" id="task-details__edit">Edit</button>
+                <button type="submit">Save</button>
+                <button type="button">Cancel</button>
             </div>
         </form>
     </dialog>
