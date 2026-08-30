@@ -62,18 +62,21 @@ function renderProject(project) {
         const daysUntilDue = getDifferenceInDays(getCurrentDateIso(), task.dueDate);
         const taskPriorityClass = PRIORITY_CLASSES[task.priority.toLowerCase()] || PRIORITY_CLASSES["low"];
 
-        const taskDiv = createDomElement("div", `task ${taskPriorityClass}`);
+        const taskDivCompleteClass = task.isComplete ? "task--complete" : "";
+        const taskDiv = createDomElement("div", `task ${taskPriorityClass} ${taskDivCompleteClass}`);
         taskDiv.setAttribute("data-id", task.id)
 
         const taskHeading = createDomElement("div", "task__heading")
 
         const taskCheckbox = document.createElement("input");
-        taskCheckbox.setAttribute("class", "task__checkbox");
+        taskCheckbox.setAttribute("class", "task__checkbox js-task-checkbox");
         taskCheckbox.setAttribute("type", "checkbox");
         taskCheckbox.setAttribute("id", task.id);
+        taskCheckbox.checked = task.isComplete;
 
         const taskLabel = document.createElement("label");
-        taskLabel.setAttribute("class", "task__title")
+        const taskLabelClass = task.isComplete ? "task__title task__title--complete" : "task__title";
+        taskLabel.setAttribute("class", taskLabelClass)
         taskLabel.setAttribute("for", task.id);
         taskLabel.textContent = task.title;
 
@@ -88,7 +91,8 @@ function renderProject(project) {
         taskDiv.appendChild(taskHeading);
 
         const taskSubHeading = createDomElement("div", "task__sub-heading");
-        taskSubHeading.appendChild(createDomElement("p", "task__due-date", formatDueDateText(daysUntilDue)));
+        const taskDueDateText = task.isComplete ? "done" : formatDueDateText(daysUntilDue);
+        taskSubHeading.appendChild(createDomElement("p", "task__due-date", taskDueDateText));
 
         const tags = task.tags;
         const taskTags = createDomElement("div", "task__tags");

@@ -188,15 +188,33 @@ function addProjectListeners() {
 
     const projectDiv = document.getElementById("project");
     projectDiv.addEventListener("click", (event) => {
-        const targetElement = event.target;
-        const taskId = targetElement.parentNode.parentNode.parentNode.dataset.id;
         const project = findProjectById(activeProjectId);
+        const targetElement = event.target;
+        let taskId = "";
+        let task = "";
 
         if (targetElement.classList.contains("js-task-details-button")) {
+            taskId = targetElement.parentNode.parentNode.parentNode.dataset.id;
+            task = project.findTaskById(taskId);
             activeTaskId = taskId;
-            renderTaskDetails(project.findTaskById(taskId));
+            renderTaskDetails(task);
         } else if (targetElement.classList.contains("js-task-delete-button")) {
+            taskId = targetElement.parentNode.parentNode.parentNode.dataset.id;
+            task = project.findTaskById(taskId);
             project.removeTask(taskId);
+            renderProject(project);
+        } else if (targetElement.classList.contains("js-task-checkbox")) {
+            taskId = targetElement.parentNode.parentNode.dataset.id;
+            task = project.findTaskById(taskId);
+            const checkbox = document.getElementById(taskId);
+
+            if (checkbox.checked) {
+                checkbox.checked = true;
+                task.isComplete = true;
+            } else {
+                checkbox.checked = false;
+                task.isComplete = false;
+            }
             renderProject(project);
         }
     })

@@ -1,6 +1,7 @@
 :root {
     --c-off-white-1: #f5f5f5;
     --c-off-white-2: #EBEBEB;
+    --c-off-white-3: #dbdbdb;
 
     --c-blue-1: #778DA9;
     --c-blue-2: #415A77;
@@ -161,7 +162,7 @@ header {
     height: 36px;
     border: 2px solid var(--c-black-1);
     border-radius: 16px;
-    background-color: var(--c-off-white-2);
+    background-color: var(--c-off-white-1);
     cursor: pointer;
 }
 
@@ -196,6 +197,10 @@ header {
     border-left: 8px solid var(--c-red-1);
 }
 
+.task--complete {
+    background-color: var(--c-off-white-3);
+}
+
 .task__heading {
     display: flex;
     align-items: center;
@@ -204,6 +209,10 @@ header {
 
 .task__title {
     font-size: 1.4rem;
+}
+
+.task__title--complete {
+    text-decoration: line-through;
 }
 
 .task__actions {
