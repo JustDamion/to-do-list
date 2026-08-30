@@ -54,38 +54,42 @@
     <dialog class="confirmation" id="confirmation-dialog">
         <h2 class="confirmation__title">Are you sure?</h2>
         <div class="confirmation__actions">
-            <button value="confirm" class="confirmation__confirm-button" id="confirmation-confirm-button">Delete Task</button>
+            <button value="confirm" class="confirmation__confirm-button" id="confirmation-confirm-button">Delete
+                Task</button>
             <button value="cancel" class="confirmation__cancel-button" id="confirmation-cancel-button">Cancel</button>
         </div>
     </dialog>
 
     <dialog class="task-details" id="task-details-dialog">
+        <div class="task-details__header">
+            <h2 class="task-details__heading">Edit Task</h2>
+            <button class="task-details__close" id="task-details-close">X</button>
+        </div>
         <form class="task-details__form" action="">
-            <div class="details-input">
-                <label class="details-input__name" for="task-details-title">Name:</label>
-                <input class="details-input__input js-details-input__input" type="text" name="" id="task-details-title" disabled>
-            </div>
-            <div class="details-input">
-                <label class="details-input__description" for="task-details-description">Description:</label>
-                <input class="details-input__input js-details-input__input" type="text" name="" id="task-details-description" disabled>
-            </div>
-            <div class="details-input">
-                <label class="details-input__due-date" for="task-details-due-date">Due Date:</label>
-                <input class="details-input__input js-details-input__input" type="date" name="" id="task-details-due-date" disabled>
-            </div>
-            <div class="details-input">
-                <label class="details-input__priority" for="task-details-priority">Priority:</label>
-                <input class="details-input__input js-details-input__input" type="text" name="" id="task-details-priority" disabled>
-            </div>
-            <div class="details-input">
-                <label class="details-input__tags" for="task-details-tags">Tags:</label>
-                <input class="details-input__input js-details-input__input" type="text" name="" id="task-details-tags" disabled>
-            </div>
+            <label class="details-input__name" for="task-details-title">Name:</label>
+            <input class="details-input__input js-details-input__input" type="text" name="" id="task-details-title"
+                disabled>
+
+            <label class="details-input__description" for="task-details-description">Description:</label>
+            <input class="details-input__input js-details-input__input" type="text" name=""
+                id="task-details-description" disabled>
+
+            <label class="details-input__due-date" for="task-details-due-date">Due Date:</label>
+            <input class="details-input__input js-details-input__input" type="date" name="" id="task-details-due-date"
+                disabled>
+
+            <label class="details-input__priority" for="task-details-priority">Priority:</label>
+            <input class="details-input__input js-details-input__input" type="text" name="" id="task-details-priority"
+                disabled>
+
+            <label class="details-input__tags" for="task-details-tags">Tags:</label>
+            <input class="details-input__input js-details-input__input" type="text" name="" id="task-details-tags"
+                disabled>
 
             <div class="task-details__actions">
-                <button type="button" id="task-details__edit">Edit</button>
-                <button type="submit">Save</button>
-                <button type="button">Cancel</button>
+                <button type="button" class="task-details__edit" id="task-details__edit">Edit</button>
+                <button type="submit" class="task-details__save">Save</button>
+                <button type="button" class="task-details__cancel">Cancel</button>
             </div>
         </form>
     </dialog>
