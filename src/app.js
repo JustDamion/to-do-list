@@ -117,6 +117,15 @@ function addTaskListeners() {
             input.removeAttribute("disabled");
         }
     })
+
+    const detailsModal = document.getElementById("task-details-dialog");
+    detailsModal.addEventListener("close", (event) => {
+        detailsModal.close();
+        const inputs = document.getElementsByClassName("js-details-input__input");
+        for (let input of inputs) {
+            input.setAttribute("disabled", "");
+        }
+    })
 }
 
 function addProjectListeners() {
