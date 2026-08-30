@@ -110,21 +110,59 @@ function addTaskListeners() {
         renderProject(findProjectById(activeProjectId));
     })
 
-    const editTaskButton = document.getElementById("task-details__edit");
+    const saveButton = document.getElementById("task-details-save");
+    const cancelButton = document.getElementById("task-details-cancel");
+    const editTaskButton = document.getElementById("task-details-edit");
     editTaskButton.addEventListener("click", (event) => {
         const inputs = document.getElementsByClassName("js-details-input__input");
         for (let input of inputs) {
             input.removeAttribute("disabled");
         }
+
+        editTaskButton.style.display = "none";
+        saveButton.style.display = "inline";
+        cancelButton.style.display = "inline";
     })
 
     const detailsModal = document.getElementById("task-details-dialog");
     detailsModal.addEventListener("close", (event) => {
-        detailsModal.close();
         const inputs = document.getElementsByClassName("js-details-input__input");
         for (let input of inputs) {
             input.setAttribute("disabled", "");
         }
+
+        editTaskButton.style.display = "inline";
+        saveButton.style.display = "none";
+        cancelButton.style.display = "none";
+    })
+
+    const detailsCloseButton = document.getElementById("task-details-close");
+    detailsCloseButton.addEventListener("click", () => {
+        detailsModal.close();
+    })
+
+    cancelButton.addEventListener("click", () => {
+        detailsModal.close();
+    })
+
+    const detailsForm = document.getElementById("task-details-form");
+    detailsForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        detailsModal.close();
+        const project = findProjectById(activeProjectId);
+        const task = project.findTaskById(activeTaskId);
+
+        const formData = new FormData(detailsForm);
+        task.title = formData.get("name");
+        task.description = formData.get("description");
+        task.dueDate = formData.get("due-date");
+        task.priority = formData.get("priority");
+
+        const tags = formData.get("tags");
+        task.tags = tags.split(",");
+
+        renderProject(project);
     })
 }
 
@@ -156,7 +194,6 @@ function addProjectListeners() {
 
         if (targetElement.classList.contains("js-task-details-button")) {
             activeTaskId = taskId;
-            console.log(activeTaskId);
             renderTaskDetails(project.findTaskById(taskId));
         } else if (targetElement.classList.contains("js-task-delete-button")) {
             project.removeTask(taskId);

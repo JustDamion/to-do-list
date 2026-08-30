@@ -65,31 +65,31 @@
             <h2 class="task-details__heading">Edit Task</h2>
             <button class="task-details__close" id="task-details-close">X</button>
         </div>
-        <form class="task-details__form" action="">
+        <form class="task-details__form" id="task-details-form" action="">
             <label class="details-input__name" for="task-details-title">Name:</label>
-            <input class="details-input__input js-details-input__input" type="text" name="" id="task-details-title"
+            <input class="details-input__input js-details-input__input" type="text" name="name" id="task-details-title"
                 disabled>
 
             <label class="details-input__description" for="task-details-description">Description:</label>
-            <input class="details-input__input js-details-input__input" type="text" name=""
-                id="task-details-description" disabled>
+            <textarea class="details-input__input js-details-input__input" name="description" id="task-details-description"
+                disabled></textarea>
 
             <label class="details-input__due-date" for="task-details-due-date">Due Date:</label>
-            <input class="details-input__input js-details-input__input" type="date" name="" id="task-details-due-date"
+            <input class="details-input__input js-details-input__input" type="date" name="due-date" id="task-details-due-date"
                 disabled>
 
             <label class="details-input__priority" for="task-details-priority">Priority:</label>
-            <input class="details-input__input js-details-input__input" type="text" name="" id="task-details-priority"
+            <input class="details-input__input js-details-input__input" type="text" name="priority" id="task-details-priority"
                 disabled>
 
             <label class="details-input__tags" for="task-details-tags">Tags:</label>
-            <input class="details-input__input js-details-input__input" type="text" name="" id="task-details-tags"
+            <input class="details-input__input js-details-input__input" type="text" name="tags" id="task-details-tags"
                 disabled>
 
             <div class="task-details__actions">
-                <button type="button" class="task-details__edit" id="task-details__edit">Edit</button>
-                <button type="submit" class="task-details__save">Save</button>
-                <button type="button" class="task-details__cancel">Cancel</button>
+                <button type="button" class="task-details__edit" id="task-details-edit">Edit</button>
+                <button type="submit" class="task-details__save" id="task-details-save">Save</button>
+                <button type="button" class="task-details__cancel" id="task-details-cancel">Cancel</button>
             </div>
         </form>
     </dialog>
