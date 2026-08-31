@@ -77,8 +77,12 @@
                 id="task-details-due-date" disabled>
 
             <label class="details-input__priority" for="task-details-priority">Priority:</label>
-            <input class="details-input__input js-details-input__input" type="text" name="priority"
-                id="task-details-priority" disabled>
+            <select class="details-input__input js-details-input__input" name="priority" id="task-details-priority"
+                disabled>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
 
             <label class="details-input__tags" for="task-details-tags">Tags:</label>
             <input class="details-input__input js-details-input__input" type="text" name="tags" id="task-details-tags"
@@ -115,7 +119,11 @@
                         </div>
                         <div class="task-input">
                             <label for="add-task-priority" class="task-input__priority-label">Priority:</label>
-                            <input type="select" name="priority" id="add-task-priority" class="task-input__input">
+                            <select name="priority" id="add-task-priority" class="task-input__input">
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
                         </div>
                         <div class="task-input">
                             <label for="add-task-tags" class="task-input__tags-label">Tags:</label>

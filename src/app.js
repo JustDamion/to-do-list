@@ -18,11 +18,11 @@ export default function init() {
     const defaultProject = new Project("Main")
 
     const task1 = new Task("Go to the gym", "Exercise is good", getEndOfMonth(), "low", ["health", "workout", "test"]);
-    const task2 = new Task("Walk 1 mile", null, new Date().toISOString(), "High", ["health", "workout", "test"]);
-    const task3 = new Task("Go to the gym", null, getEndOfMonth(), "Medium", ["health", "workout", "test"]);
-    const task4 = new Task("Walk 1 mile", null, getEndOfWeek(), "High", ["health", "workout", "test"]);
-    const task5 = new Task("Go to the gym", null, getEndOfMonth(), "Medium", ["health", "workout", "test"]);
-    const task6 = new Task("Walk 1 mile", null, getCurrentDateIso(), "High", ["health", "workout", "test"]);
+    const task2 = new Task("Walk 1 mile", null, new Date().toISOString(), "high", ["health", "workout", "test"]);
+    const task3 = new Task("Go to the gym", null, getEndOfMonth(), "medium", ["health", "workout", "test"]);
+    const task4 = new Task("Walk 1 mile", null, getEndOfWeek(), "high", ["health", "workout", "test"]);
+    const task5 = new Task("Go to the gym", null, getEndOfMonth(), "medium", ["health", "workout", "test"]);
+    const task6 = new Task("Walk 1 mile", null, getCurrentDateIso(), "high", ["health", "workout", "test"]);
 
     defaultProject.addTask(task1);
     defaultProject.addTask(task2);
@@ -33,9 +33,10 @@ export default function init() {
 
     addProject(defaultProject);
 
+
+    activeProjectId = defaultProject.id;
     renderProjectNav(getProjects());
     renderProject(defaultProject);
-    activeProjectId = defaultProject.id;
 }
 
 function addNavListeners() {
@@ -80,7 +81,7 @@ function addNavListeners() {
             activeNavButton.classList.add("nav-list__item--active")
             renderProject(findProjectById(projectId));
             activeProjectId = projectId;
-            addTaskButton.style.display = "block";
+            addTaskButton.style.display = "inline-block";
         }
     })
 }
