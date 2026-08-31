@@ -1,4 +1,4 @@
-import { getCurrentDateIso, getDifferenceInDays } from "../utils/date-utils.js";
+import { getCurrentDateIso, getDifferenceInDays, getEndOfMonth, getEndOfWeek } from "../utils/date-utils.js";
 import { createDomElement } from "../utils/dom-utils.js";
 
 const PRIORITY_CLASSES = {
@@ -7,12 +7,30 @@ const PRIORITY_CLASSES = {
     high: "task--high-priority",
 }
 
+const DUE_DATE_CLASSES = {
+    overdue: "task__due-date--overdue",
+    week: "task__due-date--week",
+    monthPlus: "task__due-date--month"
+}
+
+function getDueDateStatus(daysLeft) {
+    let dueDateStatus = "monthPlus";
+
+    if (daysLeft <= 7 && daysLeft >= 0) {
+        dueDateStatus = "week"
+    } else if (daysLeft < 0) {
+        dueDateStatus = "overdue"
+    }
+
+    return dueDateStatus;
+}
+
 function formatDueDateText(days) {
     let remainingDaysText = `${days} days left`;
     if (days === 0) {
-        remainingDaysText = "today"
+        remainingDaysText = "today";
     } else if (days < 0) {
-        remainingDaysText = "overdue"
+        remainingDaysText = "overdue";
     }
 
     return remainingDaysText;
@@ -94,9 +112,11 @@ function renderProject(project) {
         taskHeading.appendChild(taskActions);
         taskDiv.appendChild(taskHeading);
 
+        const dueDateStatus = getDueDateStatus(daysUntilDue);
+        const taskDueDateClass = task.isComplete ? "" : DUE_DATE_CLASSES[dueDateStatus];
         const taskSubHeading = createDomElement("div", "task__sub-heading");
         const taskDueDateText = task.isComplete ? "done" : formatDueDateText(daysUntilDue);
-        taskSubHeading.appendChild(createDomElement("p", "task__due-date", taskDueDateText));
+        taskSubHeading.appendChild(createDomElement("p", `task__due-date ${taskDueDateClass}`, taskDueDateText));
 
         const tags = task.tags;
         const taskTags = createDomElement("div", "task__tags");

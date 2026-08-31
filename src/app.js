@@ -33,7 +33,6 @@ export default function init() {
 
     addProject(defaultProject);
 
-
     activeProjectId = defaultProject.id;
     renderProjectNav(getProjects());
     renderProject(defaultProject);
@@ -170,7 +169,8 @@ function addTaskListeners() {
         const formData = new FormData(detailsForm);
         task.title = formData.get("name");
         task.description = formData.get("description");
-        task.dueDate = formData.get("due-date");
+        const [year, month, day] = formData.get("due-date").split("-").map(Number);
+        task.dueDate = new Date(year, month - 1, day).toISOString();
         task.priority = formData.get("priority");
 
         const tags = formData.get("tags");

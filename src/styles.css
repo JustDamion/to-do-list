@@ -416,16 +416,26 @@ header {
 }
 
 .task__due-date {
-    background-color: var(--c-blue-1);
+    color: var(--c-off-white-1);
+    background-color: var(--c-blue-2);
     border: 1px solid var(--c-black-2);
     border-radius: 12px;
     padding: 0 12px;
 }
 
-.task__due-date {
-    /* background-color: rgb(218, 96, 96); */
-    /* background-color: rgb(107, 173, 107); */
-    background-color: #e2e800;
+.task__due-date--overdue {
+    color: var(--c-black-2);
+    background-color: var(--c-red-1);
+}
+
+.task__due-date--week {
+    color: var(--c-black-2);
+    background-color: var(--c-yellow-1);
+}
+
+.task__due-date--month {
+    color: var(--c-black-2);
+    background-color: var(--c-green-1);
 }
 
 .add-task-button {
