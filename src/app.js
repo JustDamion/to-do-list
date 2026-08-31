@@ -108,6 +108,7 @@ function addTaskListeners() {
         const task = new Task(taskTitle, taskDescription, taskDueDate, taskPriority, taskTags);
         findProjectById(activeProjectId).addTask(task);
         addTaskDialog.close();
+        addTaskForm.reset();
         renderProject(findProjectById(activeProjectId));
     })
 
@@ -193,6 +194,7 @@ function addProjectListeners() {
         const project = new Project(formData.get("title"));
         addProject(project);
 
+        addProjectForm.reset();
         renderProjectNav(getProjects());
         addProjectModal.close();
     });

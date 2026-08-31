@@ -47,8 +47,8 @@
                     <button class="add-project__close" id="add-project-close">X</button>
                 </div>
                 <form action="" id="add-project-form">
-                    <label for="title">Name:</label>
-                    <input type="text" name="title" id="title">
+                    <label for="title">Name*:</label>
+                    <input type="text" name="title" id="title" required>
                     <div class="add-project__actions">
                         <button type="submit" class="add-project__submit" id="add-project-submit">Add project</button>
                         <button type="button" class="add-project__cancel" id="add-project-cancel">Cancel</button>
@@ -64,21 +64,21 @@
             <button class="task-details__close" id="task-details-close">X</button>
         </div>
         <form class="task-details__form" id="task-details-form" action="">
-            <label class="details-input__name" for="task-details-title">Name:</label>
+            <label class="details-input__name" for="task-details-title">Name*:</label>
             <input class="details-input__input js-details-input__input" type="text" name="name" id="task-details-title"
-                disabled>
+                required disabled>
 
             <label class="details-input__description" for="task-details-description">Description:</label>
             <textarea class="details-input__input js-details-input__input" name="description"
                 id="task-details-description" disabled></textarea>
 
-            <label class="details-input__due-date" for="task-details-due-date">Due Date:</label>
+            <label class="details-input__due-date" for="task-details-due-date">Due Date*:</label>
             <input class="details-input__input js-details-input__input" type="date" name="due-date"
-                id="task-details-due-date" disabled>
+                id="task-details-due-date" required disabled>
 
-            <label class="details-input__priority" for="task-details-priority">Priority:</label>
+            <label class="details-input__priority" for="task-details-priority">Priority*:</label>
             <select class="details-input__input js-details-input__input" name="priority" id="task-details-priority"
-                disabled>
+                required disabled>
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
@@ -105,17 +105,17 @@
                     <button class="add-task__close" id="add-task-close">X</button>
                 </div>
                 <form action="" class="add-task__form" id="add-task-form">
-                    <label for="add-task-title" class="task-input__name-label">Name:</label>
-                    <input type="text" name="title" id="add-task-title" class="task-input__input">
+                    <label for="add-task-title" class="task-input__name-label">Name*:</label>
+                    <input type="text" name="title" id="add-task-title" class="task-input__input" required>
 
                     <label for="add-task-description" class="task-input__description-label">Description:</label>
                     <textarea name="description" id="add-task-description" class="task-input__input"></textarea>
 
-                    <label for="add-task-due-date" class="task-input__due-date-label">Due Date:</label>
-                    <input type="date" name="due-date" id="add-task-due-date" class="task-input__input">
+                    <label for="add-task-due-date" class="task-input__due-date-label">Due Date*:</label>
+                    <input type="date" name="due-date" id="add-task-due-date" class="task-input__input" required>
 
-                    <label for="add-task-priority" class="task-input__priority-label">Priority:</label>
-                    <select name="priority" id="add-task-priority" class="task-input__input">
+                    <label for="add-task-priority" class="task-input__priority-label">Priority*:</label>
+                    <select name="priority" id="add-task-priority" class="task-input__input" required>
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
