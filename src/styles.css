@@ -211,6 +211,57 @@ header {
     cursor: pointer;
 }
 
+.add-task {
+    width: 400px;
+    padding: 12px 24px;
+    background-color: var(--c-off-white-1);
+    color: var(--c-black-2);
+}
+
+.add-task__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.add-task__close {
+    font-size: 1.2rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.add-task__form {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 8px;
+    text-align: right;
+}
+
+.add-task__actions {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.2rem;
+}
+
+.add-task__add {
+    width: 120px;
+    padding: 4px 20px;
+    background-color: var(--c-green-1);
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.add-task__cancel {
+    width: 120px;
+    padding: 4px 20px;
+    background-color: var(--c-red-1);
+    border: 1px solid black;
+    cursor: pointer;
+}
+
 .content {
     padding: 12px 32px;
 }

@@ -100,36 +100,30 @@
         <section class="content">
             <div class="project" id="project"></div>
             <dialog class="add-task" id="add-task-dialog">
+                <div class="add-task__header">
+                    <h2 class="add-task__title">Add Task</h2>
+                    <button class="add-task__close" id="add-task-close">X</button>
+                </div>
                 <form action="" class="add-task__form" id="add-task-form">
-                    <div class="form-row">
-                        <div class="task-input">
-                            <label for="add-task-title" class="task-input__name-label">Name:</label>
-                            <input type="text" name="title" id="add-task-title" class="task-input__input">
-                        </div>
-                        <div class="task-input">
-                            <label for="add-task-description" class="task-input__description-label">Description:</label>
-                            <input type="text" name="description" id="add-task-description" class="task-input__input">
-                        </div>
-                    </div>
+                    <label for="add-task-title" class="task-input__name-label">Name:</label>
+                    <input type="text" name="title" id="add-task-title" class="task-input__input">
 
-                    <div class="form-row">
-                        <div class="task-input">
-                            <label for="add-task-due-date" class="task-input__due-date-label">Due Date:</label>
-                            <input type="date" name="due-date" id="add-task-due-date" class="task-input__input">
-                        </div>
-                        <div class="task-input">
-                            <label for="add-task-priority" class="task-input__priority-label">Priority:</label>
-                            <select name="priority" id="add-task-priority" class="task-input__input">
-                                <option value="low">Low</option>
-                                <option value="medium">Medium</option>
-                                <option value="high">High</option>
-                            </select>
-                        </div>
-                        <div class="task-input">
-                            <label for="add-task-tags" class="task-input__tags-label">Tags:</label>
-                            <input type="text" name="tags" id="add-task-tags" class="task-input__input">
-                        </div>
-                    </div>
+                    <label for="add-task-description" class="task-input__description-label">Description:</label>
+                    <textarea name="description" id="add-task-description" class="task-input__input"></textarea>
+
+                    <label for="add-task-due-date" class="task-input__due-date-label">Due Date:</label>
+                    <input type="date" name="due-date" id="add-task-due-date" class="task-input__input">
+
+                    <label for="add-task-priority" class="task-input__priority-label">Priority:</label>
+                    <select name="priority" id="add-task-priority" class="task-input__input">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+
+                    <label for="add-task-tags" class="task-input__tags-label">Tags:</label>
+                    <input type="text" name="tags" id="add-task-tags" class="task-input__input">
+
                     <div class="add-task__actions">
                         <button type="submit" class="add-task__add">Add</button>
                         <button type="button" class="add-task__cancel">Cancel</button>
