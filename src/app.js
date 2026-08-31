@@ -112,30 +112,42 @@ function addTaskListeners() {
         renderProject(findProjectById(activeProjectId));
     })
 
-    const saveButton = document.getElementById("task-details-save");
-    const cancelButton = document.getElementById("task-details-cancel");
-    const editTaskButton = document.getElementById("task-details-edit");
-    editTaskButton.addEventListener("click", (event) => {
+    const addTaskCloseButton = document.getElementById("add-task-close");
+    addTaskCloseButton.addEventListener("click", () => {
+        addTaskDialog.close();
+        addTaskForm.reset();
+    })
+
+    const addTaskCancelButton = document.getElementById("add-task-cancel");
+    addTaskCancelButton.addEventListener("click", () => {
+        addTaskDialog.close();
+        addTaskForm.reset();
+    })
+
+    const detailsSaveButton = document.getElementById("task-details-save");
+    const detailsCancelButton = document.getElementById("task-details-cancel");
+    const detailsEditButton = document.getElementById("task-details-edit");
+    detailsEditButton.addEventListener("click", () => {
         const inputs = document.getElementsByClassName("js-details-input__input");
         for (let input of inputs) {
             input.removeAttribute("disabled");
         }
 
-        editTaskButton.style.display = "none";
-        saveButton.style.display = "inline";
-        cancelButton.style.display = "inline";
+        detailsEditButton.style.display = "none";
+        detailsSaveButton.style.display = "inline";
+        detailsCancelButton.style.display = "inline";
     })
 
     const detailsModal = document.getElementById("task-details-dialog");
-    detailsModal.addEventListener("close", (event) => {
+    detailsModal.addEventListener("close", () => {
         const inputs = document.getElementsByClassName("js-details-input__input");
         for (let input of inputs) {
             input.setAttribute("disabled", "");
         }
 
-        editTaskButton.style.display = "inline";
-        saveButton.style.display = "none";
-        cancelButton.style.display = "none";
+        detailsEditButton.style.display = "inline";
+        detailsSaveButton.style.display = "none";
+        detailsCancelButton.style.display = "none";
     })
 
     const detailsCloseButton = document.getElementById("task-details-close");
@@ -143,7 +155,7 @@ function addTaskListeners() {
         detailsModal.close();
     })
 
-    cancelButton.addEventListener("click", () => {
+    detailsCancelButton.addEventListener("click", () => {
         detailsModal.close();
     })
 
@@ -171,14 +183,17 @@ function addTaskListeners() {
 function addProjectListeners() {
     const addProjectButton = document.getElementById("add-project-button");
     const addProjectModal = document.getElementById("add-project-modal");
+    const addProjectForm = document.getElementById("add-project-form");
 
     addProjectButton.addEventListener("click", () => {
         addProjectModal.showModal();
+        addProjectForm.reset();
     });
 
     const addProjectClose = document.getElementById("add-project-close");
     addProjectClose.addEventListener("click", () => {
         addProjectModal.close();
+        addProjectForm.reset();
     })
 
     const addProjectCancel = document.getElementById("add-project-cancel");
@@ -186,7 +201,6 @@ function addProjectListeners() {
         addProjectModal.close();
     })
 
-    const addProjectForm = document.getElementById("add-project-form");
     addProjectForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
