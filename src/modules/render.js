@@ -58,6 +58,10 @@ function renderProject(project) {
     projectDiv.textContent = "";
     projectDiv.appendChild(createDomElement("h1", "project__title", project.title));
 
+    if (tasks.length === 0) {
+        projectDiv.appendChild(createDomElement("p", "project__no-tasks", "You have no tasks for this project, click the Add Task button to get started"));
+    }
+
     for (const task of tasks) {
         const daysUntilDue = getDifferenceInDays(getCurrentDateIso(), task.dueDate);
         const taskPriorityClass = PRIORITY_CLASSES[task.priority.toLowerCase()] || PRIORITY_CLASSES["low"];
