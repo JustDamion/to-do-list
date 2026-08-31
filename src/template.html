@@ -42,24 +42,21 @@
         <div class="add-project">
             <button class="add-project__button" id="add-project-button">Add Project +</button>
             <dialog class="add-project__modal" id="add-project-modal">
-                <h2>New Project</h2>
-                <label for="title">Name:</label>
+                <div class="add-project__header">
+                    <h2 class="add-project__title">New Project</h2>
+                    <button class="add-project__close" id="add-project-close">X</button>
+                </div>
                 <form action="" id="add-project-form">
+                    <label for="title">Name:</label>
                     <input type="text" name="title" id="title">
-                    <button type="submit" id="add-project-submit">Add new project</button>
+                    <div class="add-project__actions">
+                        <button type="submit" class="add-project__submit" id="add-project-submit">Add project</button>
+                        <button type="button" class="add-project__cancel" id="add-project-cancel">Cancel</button>
+                    </div>
                 </form>
             </dialog>
         </div>
     </aside>
-
-    <dialog class="confirmation" id="confirmation-dialog">
-        <h2 class="confirmation__title">Are you sure?</h2>
-        <div class="confirmation__actions">
-            <button value="confirm" class="confirmation__confirm-button" id="confirmation-confirm-button">Delete
-                Task</button>
-            <button value="cancel" class="confirmation__cancel-button" id="confirmation-cancel-button">Cancel</button>
-        </div>
-    </dialog>
 
     <dialog class="task-details" id="task-details-dialog">
         <div class="task-details__header">
@@ -72,16 +69,16 @@
                 disabled>
 
             <label class="details-input__description" for="task-details-description">Description:</label>
-            <textarea class="details-input__input js-details-input__input" name="description" id="task-details-description"
-                disabled></textarea>
+            <textarea class="details-input__input js-details-input__input" name="description"
+                id="task-details-description" disabled></textarea>
 
             <label class="details-input__due-date" for="task-details-due-date">Due Date:</label>
-            <input class="details-input__input js-details-input__input" type="date" name="due-date" id="task-details-due-date"
-                disabled>
+            <input class="details-input__input js-details-input__input" type="date" name="due-date"
+                id="task-details-due-date" disabled>
 
             <label class="details-input__priority" for="task-details-priority">Priority:</label>
-            <input class="details-input__input js-details-input__input" type="text" name="priority" id="task-details-priority"
-                disabled>
+            <input class="details-input__input js-details-input__input" type="text" name="priority"
+                id="task-details-priority" disabled>
 
             <label class="details-input__tags" for="task-details-tags">Tags:</label>
             <input class="details-input__input js-details-input__input" type="text" name="tags" id="task-details-tags"

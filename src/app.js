@@ -174,6 +174,16 @@ function addProjectListeners() {
         addProjectModal.showModal();
     });
 
+    const addProjectClose = document.getElementById("add-project-close");
+    addProjectClose.addEventListener("click", () => {
+        addProjectModal.close();
+    })
+
+    const addProjectCancel = document.getElementById("add-project-cancel");
+    addProjectCancel.addEventListener("click", () => {
+        addProjectModal.close();
+    })
+
     const addProjectForm = document.getElementById("add-project-form");
     addProjectForm.addEventListener("submit", (event) => {
         event.preventDefault();
