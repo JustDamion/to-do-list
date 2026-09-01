@@ -78,7 +78,9 @@ function addNavListeners() {
 function addTaskListeners() {
     const addTaskButton = document.getElementById("add-task-button");
     const addTaskDialog = document.getElementById("add-task-dialog");
+    const addTaskDueDate = document.getElementById("add-task-due-date");
     addTaskButton.addEventListener("click", () => {
+        addTaskDueDate.valueAsDate = new Date();
         addTaskDialog.showModal();
     })
 
