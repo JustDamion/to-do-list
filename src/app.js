@@ -13,22 +13,21 @@ import {
   renderTaskDetails,
 } from "./modules/render.js";
 import Task from "./modules/task.js";
-import { getProjectsFromStorage, storeProjects } from "./modules/storage.js";
+import { loadProjects, saveProjects } from "./modules/storage.js";
 
 let activeProjectId = "";
 let activeTaskId = "";
 let scheduleProjectId = "";
-let activeNavButton = "";
+let activeNavButton = null;
 
 export default function init() {
   addProjectListeners();
   addTaskListeners();
   addNavListeners();
 
-  const projectsFromStorage = getProjectsFromStorage();
-  console.log(projectsFromStorage);
+  const projectsFromStorage = loadProjects();
 
-  if (!projectsFromStorage) {
+  if (projectsFromStorage.length === 0) {
     const defaultProject = new Project("Main");
     addProject(defaultProject);
   }
@@ -48,7 +47,7 @@ function addNavListeners() {
 
     const targetElement = event.target;
     if (targetElement.hasAttribute("data-period")) {
-      if (activeNavButton !== "") {
+      if (activeNavButton) {
         activeNavButton.classList.remove("nav-list__item--active");
       }
       activeNavButton = targetElement.parentNode;
@@ -75,7 +74,7 @@ function addNavListeners() {
         removeProject(scheduleProjectId);
       }
 
-      if (activeNavButton !== "") {
+      if (activeNavButton) {
         activeNavButton.classList.remove("nav-list__item--active");
       }
       activeNavButton = event.target.parentNode;
@@ -106,7 +105,7 @@ function addTaskListeners() {
     const [year, month, day] = formData.get("due-date").split("-").map(Number);
     const taskDueDate = new Date(year, month - 1, day).toISOString();
     const taskPriority = formData.get("priority");
-    const taskTags = formData.get("tags");
+    const taskTags = formData.get("tags").split(",");
 
     const task = new Task(
       taskTitle,
@@ -119,7 +118,7 @@ function addTaskListeners() {
     addTaskDialog.close();
     addTaskForm.reset();
     renderProject(findProjectById(activeProjectId));
-    storeProjects(getProjects());
+    saveProjects(getProjects());
   });
 
   const addTaskCloseButton = document.getElementById("add-task-close");
@@ -188,7 +187,7 @@ function addTaskListeners() {
     task.tags = tags.split(",");
 
     renderProject(project);
-    storeProjects(getProjects());
+    saveProjects(getProjects());
   });
 }
 
@@ -222,7 +221,7 @@ function addProjectListeners() {
 
     addProjectForm.reset();
     renderProjectNav(getProjects());
-    storeProjects(getProjects());
+    saveProjects(getProjects());
     addProjectModal.close();
   });
 
@@ -234,19 +233,19 @@ function addProjectListeners() {
     let task;
 
     if (targetElement.classList.contains("js-task-details-button")) {
-      taskId = targetElement.parentNode.parentNode.parentNode.dataset.id;
+      taskId = targetElement.closest(".task").dataset.id;
       task = project.findTaskById(taskId);
       activeTaskId = taskId;
 
       renderTaskDetails(task);
     } else if (targetElement.classList.contains("js-task-delete-button")) {
-      taskId = targetElement.parentNode.parentNode.parentNode.dataset.id;
+      taskId = targetElement.closest(".task").dataset.id;
 
       project.removeTask(taskId);
       renderProject(project);
-      storeProjects(getProjects());
+      saveProjects(getProjects());
     } else if (targetElement.classList.contains("js-task-checkbox")) {
-      taskId = targetElement.parentNode.parentNode.dataset.id;
+      taskId = targetElement.closest(".task").id;
       task = project.findTaskById(taskId);
       const checkbox = document.getElementById(taskId);
 
@@ -258,7 +257,7 @@ function addProjectListeners() {
         task.isComplete = false;
       }
       renderProject(project);
-      storeProjects(getProjects());
+      saveProjects(getProjects());
     }
   });
 }

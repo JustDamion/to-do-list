@@ -7,9 +7,9 @@ import {
 } from "../utils/date-utils.js";
 
 const TIME_PERIODS = {
-  today: { period: getCurrentDateIso, title: "Todays Tasks" },
-  week: { period: getEndOfWeek, title: "This Weeks Tasks" },
-  month: { period: getEndOfMonth, title: "This Months Tasks" },
+  today: { endDate: getCurrentDateIso, title: "Today's Tasks" },
+  week: { endDate: getEndOfWeek, title: "This Week's Tasks" },
+  month: { endDate: getEndOfMonth, title: "This Month's Tasks" },
 };
 
 function getAllTasksBeforeDate(endDateIso) {
@@ -21,7 +21,7 @@ function getAllTasksBeforeDate(endDateIso) {
 
 function createProjectForPeriod(timePeriod) {
   const scheduleProject = new Project(TIME_PERIODS[timePeriod].title);
-  const tasks = getAllTasksBeforeDate(TIME_PERIODS[timePeriod].period());
+  const tasks = getAllTasksBeforeDate(TIME_PERIODS[timePeriod].endDate());
 
   scheduleProject.addTasks(tasks);
   return scheduleProject;

@@ -3,7 +3,7 @@ export default class Task {
     title,
     description = null,
     dueDate = null,
-    priority = "High",
+    priority = "low",
     tags = [],
   ) {
     this.id = crypto.randomUUID();

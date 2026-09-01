@@ -21,7 +21,7 @@ function storageAvailable(type) {
   }
 }
 
-function getProjectsFromStorage() {
+function loadProjects() {
   if (storageAvailable("localStorage")) {
     const storedProjects = JSON.parse(localStorage.getItem("projects"));
 
@@ -33,10 +33,7 @@ function getProjectsFromStorage() {
       const projects = getProjects();
 
       for (let i = 0; i < projects.length; i++) {
-        console.log(projects[i]);
         for (let j = 0; j < projects[i].tasks.length; j++) {
-          console.log(i);
-          console.log(j);
           projects[i].tasks[j] = Object.assign(
             new Task(),
             projects[i].tasks[j],
@@ -45,7 +42,7 @@ function getProjectsFromStorage() {
       }
     } else {
       console.log("No stored projects");
-      return false;
+      return [];
     }
 
     return getProjects();
@@ -55,8 +52,8 @@ function getProjectsFromStorage() {
   }
 }
 
-function storeProjects(projects) {
+function saveProjects(projects) {
   localStorage.setItem("projects", JSON.stringify(projects));
 }
 
-export { getProjectsFromStorage, storeProjects };
+export { loadProjects, saveProjects };
