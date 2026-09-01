@@ -1,9 +1,9 @@
-import { getProjects, addProject, removeProject, findProjectById } from "./modules/app-state.js";
+import { getProjects, addProject, removeProject, findProjectById, getFirstProject } from "./modules/app-state.js";
 import { createProjectForPeriod } from "./modules/schedule.js";
 import Project from "./modules/project.js";
 import { renderProjectNav, renderProject, renderTaskDetails } from "./modules/render.js";
 import Task from "./modules/task.js";
-import { getCurrentDateIso, getEndOfMonth, getEndOfWeek } from "./utils/date-utils.js";
+import { getProjectsFromStorage, storeProjects } from "./modules/storage.js";
 
 let activeProjectId = "";
 let activeTaskId = "";
@@ -15,27 +15,17 @@ export default function init() {
     addTaskListeners();
     addNavListeners();
 
-    const defaultProject = new Project("Main")
+    const projectsFromStorage = getProjectsFromStorage();
+    console.log(projectsFromStorage);
 
-    const task1 = new Task("Go to the gym", "Exercise is good", getEndOfMonth(), "low", ["health", "workout", "test"]);
-    const task2 = new Task("Walk 1 mile", null, new Date().toISOString(), "high", ["health", "workout", "test"]);
-    const task3 = new Task("Go to the gym", null, getEndOfMonth(), "medium", ["health", "workout", "test"]);
-    const task4 = new Task("Walk 1 mile", null, getEndOfWeek(), "high", ["health", "workout", "test"]);
-    const task5 = new Task("Go to the gym", null, getEndOfMonth(), "medium", ["health", "workout", "test"]);
-    const task6 = new Task("Walk 1 mile", null, getCurrentDateIso(), "high", ["health", "workout", "test"]);
+    if (!projectsFromStorage) {
+        const defaultProject = new Project("Main")
+        addProject(defaultProject);
+    }
 
-    defaultProject.addTask(task1);
-    defaultProject.addTask(task2);
-    defaultProject.addTask(task3);
-    defaultProject.addTask(task4);
-    defaultProject.addTask(task5);
-    defaultProject.addTask(task6);
-
-    addProject(defaultProject);
-
-    activeProjectId = defaultProject.id;
+    activeProjectId = getFirstProject().id;
     renderProjectNav(getProjects());
-    renderProject(defaultProject);
+    renderProject(getFirstProject());
 }
 
 function addNavListeners() {
@@ -109,6 +99,7 @@ function addTaskListeners() {
         addTaskDialog.close();
         addTaskForm.reset();
         renderProject(findProjectById(activeProjectId));
+        storeProjects(getProjects());
     })
 
     const addTaskCloseButton = document.getElementById("add-task-close");
@@ -177,6 +168,7 @@ function addTaskListeners() {
         task.tags = tags.split(",");
 
         renderProject(project);
+        storeProjects(getProjects());
     })
 }
 
@@ -210,6 +202,7 @@ function addProjectListeners() {
 
         addProjectForm.reset();
         renderProjectNav(getProjects());
+        storeProjects(getProjects());
         addProjectModal.close();
     });
 
@@ -230,6 +223,7 @@ function addProjectListeners() {
             task = project.findTaskById(taskId);
             project.removeTask(taskId);
             renderProject(project);
+            storeProjects(getProjects());
         } else if (targetElement.classList.contains("js-task-checkbox")) {
             taskId = targetElement.parentNode.parentNode.dataset.id;
             task = project.findTaskById(taskId);
@@ -243,6 +237,7 @@ function addProjectListeners() {
                 task.isComplete = false;
             }
             renderProject(project);
+            storeProjects(getProjects());
         }
     })
 }
