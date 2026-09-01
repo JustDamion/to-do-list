@@ -1,136 +1,176 @@
-import { getCurrentDateIso, getDifferenceInDays, getEndOfMonth, getEndOfWeek } from "../utils/date-utils.js";
+import { getCurrentDateIso, getDifferenceInDays } from "../utils/date-utils.js";
 import { createDomElement } from "../utils/dom-utils.js";
 
 const PRIORITY_CLASSES = {
-    low: "task--low-priority",
-    medium: "task--medium-priority",
-    high: "task--high-priority",
-}
+  low: "task--low-priority",
+  medium: "task--medium-priority",
+  high: "task--high-priority",
+};
 
 const DUE_DATE_CLASSES = {
-    overdue: "task__due-date--overdue",
-    week: "task__due-date--week",
-    monthPlus: "task__due-date--month"
-}
+  overdue: "task__due-date--overdue",
+  week: "task__due-date--week",
+  monthPlus: "task__due-date--month",
+};
 
 function getDueDateStatus(daysLeft) {
-    let dueDateStatus = "monthPlus";
+  let dueDateStatus = "monthPlus";
 
-    if (daysLeft <= 7 && daysLeft >= 0) {
-        dueDateStatus = "week"
-    } else if (daysLeft < 0) {
-        dueDateStatus = "overdue"
-    }
+  if (daysLeft <= 7 && daysLeft >= 0) {
+    dueDateStatus = "week";
+  } else if (daysLeft < 0) {
+    dueDateStatus = "overdue";
+  }
 
-    return dueDateStatus;
+  return dueDateStatus;
 }
 
 function formatDueDateText(days) {
-    let remainingDaysText = `${days} days left`;
-    if (days === 0) {
-        remainingDaysText = "today";
-    } else if (days < 0) {
-        remainingDaysText = "overdue";
-    }
+  let remainingDaysText = `${days} days left`;
+  if (days === 0) {
+    remainingDaysText = "today";
+  } else if (days < 0) {
+    remainingDaysText = "overdue";
+  }
 
-    return remainingDaysText;
+  return remainingDaysText;
 }
 
 function renderProjectNav(projects) {
-    const projectNav = document.getElementById("nav-list-projects");
-    projectNav.textContent = "";
+  const projectNav = document.getElementById("nav-list-projects");
+  projectNav.textContent = "";
 
-    for (const project of projects) {
-        const navItem = createDomElement("li", "nav-list__item");
-        const navButton = createDomElement("button", "nav-list__button", project.title);
-        navButton.setAttribute("data-id", project.id);
-        navItem.appendChild(navButton);
-        projectNav.appendChild(navItem);
-    }
+  for (const project of projects) {
+    const navItem = createDomElement("li", "nav-list__item");
+    const navButton = createDomElement(
+      "button",
+      "nav-list__button",
+      project.title,
+    );
+    navButton.setAttribute("data-id", project.id);
+    navItem.appendChild(navButton);
+    projectNav.appendChild(navItem);
+  }
 }
 
 function renderTaskDetails(task) {
-    const taskTitle = document.getElementById("task-details-title");
-    taskTitle.value = task.title;
+  const taskTitle = document.getElementById("task-details-title");
+  taskTitle.value = task.title;
 
-    const taskDescription = document.getElementById("task-details-description");
-    taskDescription.value = task.description;
+  const taskDescription = document.getElementById("task-details-description");
+  taskDescription.value = task.description;
 
-    const taskDueDate = document.getElementById("task-details-due-date");
-    taskDueDate.value = new Date(task.dueDate).toLocaleDateString('sv-SE');
+  const taskDueDate = document.getElementById("task-details-due-date");
+  taskDueDate.value = new Date(task.dueDate).toLocaleDateString("sv-SE");
 
-    const taskPriority = document.getElementById("task-details-priority");
-    taskPriority.value = task.priority;
+  const taskPriority = document.getElementById("task-details-priority");
+  taskPriority.value = task.priority;
 
-    const taskTags = document.getElementById("task-details-tags");
-    taskTags.value = task.tags;
+  const taskTags = document.getElementById("task-details-tags");
+  taskTags.value = task.tags;
 
-    const taskDetailsDialog = document.getElementById("task-details-dialog");
-    taskDetailsDialog.showModal();
+  const taskDetailsDialog = document.getElementById("task-details-dialog");
+  taskDetailsDialog.showModal();
 }
 
 function renderProject(project) {
-    const projectDiv = document.getElementById("project");
-    const tasks = project.tasks;
+  const projectDiv = document.getElementById("project");
+  const tasks = project.tasks;
 
-    projectDiv.textContent = "";
-    projectDiv.appendChild(createDomElement("h1", "project__title", project.title));
+  projectDiv.textContent = "";
+  projectDiv.appendChild(
+    createDomElement("h1", "project__title", project.title),
+  );
 
-    if (tasks.length === 0) {
-        projectDiv.appendChild(createDomElement("p", "project__no-tasks", "You have no tasks for this project, click the Add Task button to get started"));
+  if (tasks.length === 0) {
+    projectDiv.appendChild(
+      createDomElement(
+        "p",
+        "project__no-tasks",
+        "You have no tasks for this project, click the Add Task button to get started",
+      ),
+    );
+  }
+
+  for (const task of tasks) {
+    const daysUntilDue = getDifferenceInDays(getCurrentDateIso(), task.dueDate);
+    const taskPriorityClass =
+      PRIORITY_CLASSES[task.priority.toLowerCase()] || PRIORITY_CLASSES["low"];
+
+    const taskDivCompleteClass = task.isComplete ? "task--complete" : "";
+    const taskDiv = createDomElement(
+      "div",
+      `task ${taskPriorityClass} ${taskDivCompleteClass}`,
+    );
+    taskDiv.setAttribute("data-id", task.id);
+
+    const taskHeading = createDomElement("div", "task__heading");
+
+    const taskCheckbox = document.createElement("input");
+    taskCheckbox.setAttribute("class", "task__checkbox js-task-checkbox");
+    taskCheckbox.setAttribute("type", "checkbox");
+    taskCheckbox.setAttribute("id", task.id);
+    taskCheckbox.checked = task.isComplete;
+
+    const taskLabel = document.createElement("label");
+    const taskLabelClass = task.isComplete
+      ? "task__title task__title--complete"
+      : "task__title";
+    taskLabel.setAttribute("class", taskLabelClass);
+    taskLabel.setAttribute("for", task.id);
+    taskLabel.textContent = task.title;
+
+    taskHeading.appendChild(taskCheckbox);
+    taskHeading.appendChild(taskLabel);
+
+    const taskActions = createDomElement("div", "task__actions");
+    taskActions.appendChild(
+      createDomElement(
+        "button",
+        "task__details-button js-task-details-button",
+        "Details",
+      ),
+    );
+    taskActions.appendChild(
+      createDomElement(
+        "button",
+        "task__delete-button js-task-delete-button",
+        "X",
+      ),
+    );
+
+    taskHeading.appendChild(taskActions);
+    taskDiv.appendChild(taskHeading);
+
+    const dueDateStatus = getDueDateStatus(daysUntilDue);
+    const taskDueDateClass = task.isComplete
+      ? ""
+      : DUE_DATE_CLASSES[dueDateStatus];
+    const taskSubHeading = createDomElement("div", "task__sub-heading");
+    const taskDueDateText = task.isComplete
+      ? "done"
+      : formatDueDateText(daysUntilDue);
+    taskSubHeading.appendChild(
+      createDomElement(
+        "p",
+        `task__due-date ${taskDueDateClass}`,
+        taskDueDateText,
+      ),
+    );
+
+    const tags = task.tags;
+    const taskTags = createDomElement("div", "task__tags");
+    for (let i = 0; i < Math.min(tags.length, 5); i++) {
+      taskTags.appendChild(createDomElement("p", "tag", tags[i]));
     }
 
-    for (const task of tasks) {
-        const daysUntilDue = getDifferenceInDays(getCurrentDateIso(), task.dueDate);
-        const taskPriorityClass = PRIORITY_CLASSES[task.priority.toLowerCase()] || PRIORITY_CLASSES["low"];
+    taskSubHeading.appendChild(taskTags);
+    taskDiv.appendChild(taskSubHeading);
+    projectDiv.appendChild(taskDiv);
+  }
 
-        const taskDivCompleteClass = task.isComplete ? "task--complete" : "";
-        const taskDiv = createDomElement("div", `task ${taskPriorityClass} ${taskDivCompleteClass}`);
-        taskDiv.setAttribute("data-id", task.id)
-
-        const taskHeading = createDomElement("div", "task__heading")
-
-        const taskCheckbox = document.createElement("input");
-        taskCheckbox.setAttribute("class", "task__checkbox js-task-checkbox");
-        taskCheckbox.setAttribute("type", "checkbox");
-        taskCheckbox.setAttribute("id", task.id);
-        taskCheckbox.checked = task.isComplete;
-
-        const taskLabel = document.createElement("label");
-        const taskLabelClass = task.isComplete ? "task__title task__title--complete" : "task__title";
-        taskLabel.setAttribute("class", taskLabelClass)
-        taskLabel.setAttribute("for", task.id);
-        taskLabel.textContent = task.title;
-
-        taskHeading.appendChild(taskCheckbox)
-        taskHeading.appendChild(taskLabel);
-
-        const taskActions = createDomElement("div", "task__actions");
-        taskActions.appendChild(createDomElement("button", "task__details-button js-task-details-button", "Details"));
-        taskActions.appendChild(createDomElement("button", "task__delete-button js-task-delete-button", "X"));
-
-        taskHeading.appendChild(taskActions);
-        taskDiv.appendChild(taskHeading);
-
-        const dueDateStatus = getDueDateStatus(daysUntilDue);
-        const taskDueDateClass = task.isComplete ? "" : DUE_DATE_CLASSES[dueDateStatus];
-        const taskSubHeading = createDomElement("div", "task__sub-heading");
-        const taskDueDateText = task.isComplete ? "done" : formatDueDateText(daysUntilDue);
-        taskSubHeading.appendChild(createDomElement("p", `task__due-date ${taskDueDateClass}`, taskDueDateText));
-
-        const tags = task.tags;
-        const taskTags = createDomElement("div", "task__tags");
-        for (let i = 0; i < Math.min(tags.length, 5); i++) {
-            taskTags.appendChild(createDomElement("p", "tag", tags[i]));
-        }
-
-        taskSubHeading.appendChild(taskTags);
-        taskDiv.appendChild(taskSubHeading);
-        projectDiv.appendChild(taskDiv);
-    }
-
-    const addTaskButton = document.getElementById("add-task-button");
-    addTaskButton.setAttribute("data-id", project.id);
+  const addTaskButton = document.getElementById("add-task-button");
+  addTaskButton.setAttribute("data-id", project.id);
 }
 
-export { renderProjectNav, renderProject, renderTaskDetails }
+export { renderProjectNav, renderProject, renderTaskDetails };

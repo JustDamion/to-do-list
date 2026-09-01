@@ -1,12 +1,12 @@
 function createDomElement(tag, classAttribute, textContent = null) {
-    const element = document.createElement(tag);
-    element.setAttribute("class", classAttribute);
+  const element = document.createElement(tag);
+  element.setAttribute("class", classAttribute);
 
-    if (textContent !== null) {
-        element.textContent = textContent;
-    }
+  if (textContent !== null) {
+    element.textContent = textContent;
+  }
 
-    return element;
+  return element;
 }
 
-export { createDomElement }
+export { createDomElement };

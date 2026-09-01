@@ -1,138 +1,289 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To-Do-List</title>
-    <link rel="icon" href="./images/icons/calendar-month.svg">
-</head>
+    <link rel="icon" href="./images/icons/calendar-month.svg" />
+  </head>
 
-<body>
+  <body>
     <header>
-        <div class="header__branding">
-            <h1 class="branding__title">To-Do-List</h1>
-        </div>
+      <div class="header__branding">
+        <h1 class="branding__title">To-Do-List</h1>
+      </div>
     </header>
 
     <aside class="sidebar">
-        <nav class="sidebar__nav">
-            <h2 class="nav-title">Schedule</h2>
-            <ul class="nav-list" id="nav-list-schedule">
-                <li class="nav-list__item">
-                    <img class="nav-list__icon" src="./images/icons/calendar-today.svg" alt="" width="256" height="256">
-                    <button class="nav-list__button" id="nav-day-button" data-period="today">Today</button>
-                </li>
-                <li class="nav-list__item">
-                    <img class="nav-list__icon" src="./images/icons/calendar-week.svg" alt="" width="256" height="256">
-                    <button class="nav-list__button" id="nav-week-button" data-period="week">This
-                        Week</button>
-                </li>
-                <li class="nav-list__item">
-                    <img class="nav-list__icon" src="./images/icons/calendar-month.svg" alt="" width="256" height="256">
-                    <button class="nav-list__button" id="nav-month-button" data-period="month">This
-                        Month</button>
-                </li>
-            </ul>
+      <nav class="sidebar__nav">
+        <h2 class="nav-title">Schedule</h2>
+        <ul class="nav-list" id="nav-list-schedule">
+          <li class="nav-list__item">
+            <img
+              class="nav-list__icon"
+              src="./images/icons/calendar-today.svg"
+              alt=""
+              width="256"
+              height="256"
+            />
+            <button
+              class="nav-list__button"
+              id="nav-day-button"
+              data-period="today"
+            >
+              Today
+            </button>
+          </li>
+          <li class="nav-list__item">
+            <img
+              class="nav-list__icon"
+              src="./images/icons/calendar-week.svg"
+              alt=""
+              width="256"
+              height="256"
+            />
+            <button
+              class="nav-list__button"
+              id="nav-week-button"
+              data-period="week"
+            >
+              This Week
+            </button>
+          </li>
+          <li class="nav-list__item">
+            <img
+              class="nav-list__icon"
+              src="./images/icons/calendar-month.svg"
+              alt=""
+              width="256"
+              height="256"
+            />
+            <button
+              class="nav-list__button"
+              id="nav-month-button"
+              data-period="month"
+            >
+              This Month
+            </button>
+          </li>
+        </ul>
 
-            <h2 class="nav-title">Projects</h2>
-            <ul class="nav-list" id="nav-list-projects"></ul>
-        </nav>
+        <h2 class="nav-title">Projects</h2>
+        <ul class="nav-list" id="nav-list-projects"></ul>
+      </nav>
 
-        <div class="add-project">
-            <button class="add-project__button" id="add-project-button">Add Project +</button>
-            <dialog class="add-project__modal" id="add-project-modal">
-                <div class="add-project__header">
-                    <h2 class="add-project__title">New Project</h2>
-                    <button class="add-project__close" id="add-project-close">X</button>
-                </div>
-                <form action="" id="add-project-form">
-                    <label for="title">Name*:</label>
-                    <input type="text" name="title" id="title" placeholder="Chores" required>
-                    <div class="add-project__actions">
-                        <button type="submit" class="add-project__submit" id="add-project-submit">Add project</button>
-                        <button type="button" class="add-project__cancel" id="add-project-cancel">Cancel</button>
-                    </div>
-                </form>
-            </dialog>
-        </div>
+      <div class="add-project">
+        <button class="add-project__button" id="add-project-button">
+          Add Project +
+        </button>
+        <dialog class="add-project__modal" id="add-project-modal">
+          <div class="add-project__header">
+            <h2 class="add-project__title">New Project</h2>
+            <button class="add-project__close" id="add-project-close">X</button>
+          </div>
+          <form action="" id="add-project-form">
+            <label for="title">Name*:</label>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              placeholder="Chores"
+              required
+            />
+            <div class="add-project__actions">
+              <button
+                type="submit"
+                class="add-project__submit"
+                id="add-project-submit"
+              >
+                Add project
+              </button>
+              <button
+                type="button"
+                class="add-project__cancel"
+                id="add-project-cancel"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </dialog>
+      </div>
     </aside>
 
     <dialog class="task-details" id="task-details-dialog">
-        <div class="task-details__header">
-            <h2 class="task-details__heading">Edit Task</h2>
-            <button class="task-details__close" id="task-details-close">X</button>
+      <div class="task-details__header">
+        <h2 class="task-details__heading">Edit Task</h2>
+        <button class="task-details__close" id="task-details-close">X</button>
+      </div>
+      <form class="task-details__form" id="task-details-form" action="">
+        <label class="details-input__name" for="task-details-title"
+          >Name*:</label
+        >
+        <input
+          class="details-input__input js-details-input__input"
+          type="text"
+          name="name"
+          id="task-details-title"
+          required
+          disabled
+        />
+
+        <label class="details-input__description" for="task-details-description"
+          >Description:</label
+        >
+        <textarea
+          class="details-input__input js-details-input__input"
+          name="description"
+          id="task-details-description"
+          disabled
+        ></textarea>
+
+        <label class="details-input__due-date" for="task-details-due-date"
+          >Due Date*:</label
+        >
+        <input
+          class="details-input__input js-details-input__input"
+          type="date"
+          name="due-date"
+          id="task-details-due-date"
+          required
+          disabled
+        />
+
+        <label class="details-input__priority" for="task-details-priority"
+          >Priority*:</label
+        >
+        <select
+          class="details-input__input js-details-input__input"
+          name="priority"
+          id="task-details-priority"
+          required
+          disabled
+        >
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+
+        <label class="details-input__tags" for="task-details-tags">Tags:</label>
+        <input
+          class="details-input__input js-details-input__input"
+          type="text"
+          name="tags"
+          id="task-details-tags"
+          disabled
+        />
+
+        <div class="task-details__actions">
+          <button
+            type="button"
+            class="task-details__edit"
+            id="task-details-edit"
+          >
+            Edit
+          </button>
+          <button
+            type="submit"
+            class="task-details__save"
+            id="task-details-save"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            class="task-details__cancel"
+            id="task-details-cancel"
+          >
+            Cancel
+          </button>
         </div>
-        <form class="task-details__form" id="task-details-form" action="">
-            <label class="details-input__name" for="task-details-title">Name*:</label>
-            <input class="details-input__input js-details-input__input" type="text" name="name" id="task-details-title"
-                required disabled>
-
-            <label class="details-input__description" for="task-details-description">Description:</label>
-            <textarea class="details-input__input js-details-input__input" name="description"
-                id="task-details-description" disabled></textarea>
-
-            <label class="details-input__due-date" for="task-details-due-date">Due Date*:</label>
-            <input class="details-input__input js-details-input__input" type="date" name="due-date"
-                id="task-details-due-date" required disabled>
-
-            <label class="details-input__priority" for="task-details-priority">Priority*:</label>
-            <select class="details-input__input js-details-input__input" name="priority" id="task-details-priority"
-                required disabled>
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-            </select>
-
-            <label class="details-input__tags" for="task-details-tags">Tags:</label>
-            <input class="details-input__input js-details-input__input" type="text" name="tags" id="task-details-tags"
-                disabled>
-
-            <div class="task-details__actions">
-                <button type="button" class="task-details__edit" id="task-details-edit">Edit</button>
-                <button type="submit" class="task-details__save" id="task-details-save">Save</button>
-                <button type="button" class="task-details__cancel" id="task-details-cancel">Cancel</button>
-            </div>
-        </form>
+      </form>
     </dialog>
 
     <main>
-        <section class="content">
-            <div class="project" id="project"></div>
-            <dialog class="add-task" id="add-task-dialog">
-                <div class="add-task__header">
-                    <h2 class="add-task__title">Add Task</h2>
-                    <button class="add-task__close" id="add-task-close">X</button>
-                </div>
-                <form action="" class="add-task__form" id="add-task-form">
-                    <label for="add-task-title" class="task-input__name-label">Name*:</label>
-                    <input type="text" name="title" id="add-task-title" class="task-input__input" placeholder="Study" required>
+      <section class="content">
+        <div class="project" id="project"></div>
+        <dialog class="add-task" id="add-task-dialog">
+          <div class="add-task__header">
+            <h2 class="add-task__title">Add Task</h2>
+            <button class="add-task__close" id="add-task-close">X</button>
+          </div>
+          <form action="" class="add-task__form" id="add-task-form">
+            <label for="add-task-title" class="task-input__name-label"
+              >Name*:</label
+            >
+            <input
+              type="text"
+              name="title"
+              id="add-task-title"
+              class="task-input__input"
+              placeholder="Study"
+              required
+            />
 
-                    <label for="add-task-description" class="task-input__description-label">Description:</label>
-                    <textarea name="description" id="add-task-description" class="task-input__input" placeholder="Finals are coming up"></textarea>
+            <label
+              for="add-task-description"
+              class="task-input__description-label"
+              >Description:</label
+            >
+            <textarea
+              name="description"
+              id="add-task-description"
+              class="task-input__input"
+              placeholder="Finals are coming up"
+            ></textarea>
 
-                    <label for="add-task-due-date" class="task-input__due-date-label">Due Date*:</label>
-                    <input type="date" name="due-date" id="add-task-due-date" class="task-input__input" required>
+            <label for="add-task-due-date" class="task-input__due-date-label"
+              >Due Date*:</label
+            >
+            <input
+              type="date"
+              name="due-date"
+              id="add-task-due-date"
+              class="task-input__input"
+              required
+            />
 
-                    <label for="add-task-priority" class="task-input__priority-label">Priority*:</label>
-                    <select name="priority" id="add-task-priority" class="task-input__input" required>
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                    </select>
+            <label for="add-task-priority" class="task-input__priority-label"
+              >Priority*:</label
+            >
+            <select
+              name="priority"
+              id="add-task-priority"
+              class="task-input__input"
+              required
+            >
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
 
-                    <label for="add-task-tags" class="task-input__tags-label">Tags:</label>
-                    <input type="text" name="tags" id="add-task-tags" class="task-input__input" placeholder="school,homework,study">
+            <label for="add-task-tags" class="task-input__tags-label"
+              >Tags:</label
+            >
+            <input
+              type="text"
+              name="tags"
+              id="add-task-tags"
+              class="task-input__input"
+              placeholder="school,homework,study"
+            />
 
-                    <div class="add-task__actions">
-                        <button type="submit" class="add-task__add">Add</button>
-                        <button type="button" class="add-task__cancel" id="add-task-cancel">Cancel</button>
-                    </div>
-                </form>
-            </dialog>
-            <button class="add-task-button" id="add-task-button">Add Task +</button>
-        </section>
+            <div class="add-task__actions">
+              <button type="submit" class="add-task__add">Add</button>
+              <button
+                type="button"
+                class="add-task__cancel"
+                id="add-task-cancel"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </dialog>
+        <button class="add-task-button" id="add-task-button">Add Task +</button>
+      </section>
     </main>
-</body>
-
+  </body>
 </html>
